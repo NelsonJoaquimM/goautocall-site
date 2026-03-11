@@ -936,6 +936,65 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+
+<style>
+/* MOBILE FIXES RECRUTEMENT */
+@media (max-width: 768px) {
+  nav { padding: 14px 16px !important; }
+  nav ul.nav-links { display: none !important; }
+  section { padding: 60px 20px !important; }
+  .hero { grid-template-columns: 1fr !important; padding: 110px 20px 60px !important; }
+  .hero-right { display: none !important; }
+  .hero-title { font-size: 2.2rem !important; }
+  .hero-btns { flex-direction: column !important; }
+  .btn-primary, .btn-secondary { width: 100% !important; text-align: center !important; }
+  .why-grid { grid-template-columns: 1fr !important; }
+  .profil-header { grid-template-columns: 1fr !important; }
+  .profil-cards { grid-template-columns: 1fr !important; }
+  .avantages-grid { grid-template-columns: 1fr 1fr !important; }
+  .process-steps { grid-template-columns: 1fr 1fr !important; }
+  .process-steps::before { display: none !important; }
+  .temoignages-grid { grid-template-columns: 1fr !important; }
+  .form-container { grid-template-columns: 1fr !important; }
+  .cv-form { padding: 24px !important; }
+  .form-row { grid-template-columns: 1fr !important; }
+  footer { flex-direction: column !important; text-align: center !important; }
+}
+@media (max-width: 480px) {
+  .avantages-grid { grid-template-columns: 1fr !important; }
+  .hero-stats { flex-direction: column !important; gap: 16px !important; }
+}
+</style>
+<style>
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  background: none;
+  border: none;
+}
+.nav-hamburger span { width: 24px; height: 2px; background: #c9a84c; display: block; }
+.nav-mobile-menu {
+  display: none;
+  position: fixed;
+  top: 70px; left: 0; right: 0;
+  background: rgba(6,6,6,.98);
+  padding: 24px;
+  z-index: 999;
+  border-bottom: 1px solid rgba(201,168,76,.2);
+  flex-direction: column;
+  gap: 20px;
+}
+.nav-mobile-menu a {
+  color: #a09080; text-decoration: none;
+  font-size: .85rem; letter-spacing: .1em; text-transform: uppercase;
+  padding: 10px 0; border-bottom: 1px solid rgba(201,168,76,.08);
+}
+.nav-mobile-menu.open { display: flex; }
+@media (max-width: 768px) { .nav-hamburger { display: flex !important; } }
+</style>
 </head>
 <body>
 
@@ -949,7 +1008,17 @@ document.addEventListener('DOMContentLoaded', function() {
     <li><a href="#equipe">L'équipe</a></li>
     <li><a href="#postuler" class="nav-cta">Postuler maintenant <span class="nav-badge">ON RECRUTE</span></a></li>
   </ul>
+<button class="nav-hamburger" onclick="document.querySelector('.nav-mobile-menu').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-mobile-menu">
+  <a href="index.html">← Site principal</a>
+  <a href="#pourquoi" onclick="this.closest('.nav-mobile-menu').classList.remove('open')">Pourquoi nous</a>
+  <a href="#profil" onclick="this.closest('.nav-mobile-menu').classList.remove('open')">Profil recherché</a>
+  <a href="#avantages" onclick="this.closest('.nav-mobile-menu').classList.remove('open')">Avantages</a>
+  <a href="#postuler" onclick="this.closest('.nav-mobile-menu').classList.remove('open')" style="color:#c9a84c;font-weight:700">Postuler maintenant</a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="hero">
