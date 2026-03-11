@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoAutoCall — Rejoins l'équipe | Recrutement</title>
+  <link rel="icon" type="image/png" href="logo.png">
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #060606;
+    --black2: #0e0e0e;
+    --gold: #c9a84c;
+    --gold-light: #e2c87a;
+    --gold-dark: #9a7530;
+    --white: #f4efe6;
+    --grey: #7a7060;
+    --grey-light: #b0a89a;
+    --red: #c0392b;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    overflow-x: hidden;
+    cursor: auto;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 99999;
+    transition: transform .15s ease;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 99998;
+    transition: transform .35s cubic-bezier(.25,.46,.45,.94), width .3s, height .3s;
+    transform: translate(-50%, -50%);
+    opacity: .6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 60px;
+    background: rgba(6,6,6,.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(201,168,76,.12);
+  }
+  .nav-logo img { height: 44px; width: auto; display: block; }
+  .nav-links { display: flex; gap: 36px; align-items: center; list-style: none; }
+  .nav-links a {
+    color: var(--grey-light); text-decoration: none;
+    font-size: .78rem; letter-spacing: .12em; text-transform: uppercase;
+    font-weight: 500;
+    transition: color .3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold);
+    color: var(--black) !important;
+    padding: 10px 24px;
+    font-weight: 700 !important;
+    letter-spacing: .08em;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .nav-cta:hover { background: var(--gold-light) !important; color: var(--black) !important; }
+  .nav-badge {
+    background: var(--red);
+    color: #fff;
+    font-size: .6rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    padding: 3px 8px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    margin-left: 8px;
+    animation: pulse-red 2s infinite;
+  }
+  @keyframes pulse-red {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .65; }
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 60% 40%, rgba(201,168,76,.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 10% 80%, rgba(201,168,76,.04) 0%, transparent 60%),
+      linear-gradient(160deg, #0a0a0a 0%, #060606 60%, #0d0b07 100%);
+  }
+  .hero-lines {
+    position: absolute; inset: 0; z-index: 0; overflow: hidden;
+    opacity: .07;
+  }
+  .hero-lines::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+  }
+  .hero-lines::after {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 500px; height: 500px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+  }
+
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 140px 70px 80px;
+    position: relative; z-index: 1;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(201,168,76,.1);
+    border: 1px solid rgba(201,168,76,.3);
+    padding: 8px 18px;
+    margin-bottom: 32px;
+    width: fit-content;
+    clip-path: polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);
+  }
+  .hero-tag span {
+    font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--gold); font-weight: 600;
+  }
+  .hero-tag .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold);
+    animation: blink 1.5s infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.2;} }
+
+  .hero-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 24px;
+    color: var(--white);
+  }
+  .hero-title .gold { color: var(--gold); }
+  .hero-title .underline-gold {
+    position: relative;
+    display: inline-block;
+  }
+  .hero-title .underline-gold::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light), transparent);
+    border-radius: 2px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.05rem; line-height: 1.7;
+    color: var(--grey-light);
+    max-width: 480px;
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+  .hero-subtitle strong { color: var(--white); font-weight: 600; }
+
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 52px; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: var(--black);
+    padding: 16px 36px;
+    font-size: .85rem; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; text-decoration: none;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: all .3s;
+    display: inline-block;
+    border: none; cursor: auto;
+  }
+  .btn-primary:hover {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px rgba(201,168,76,.3);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--gold);
+    padding: 16px 36px;
+    font-size: .85rem; font-weight: 600; letter-spacing: .12em;
+    text-transform: uppercase; text-decoration: none;
+    border: 1px solid var(--gold);
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: all .3s;
+    display: inline-block;
+    cursor: auto;
+  }
+  .btn-secondary:hover {
+    background: rgba(201,168,76,.1);
+    transform: translateY(-2px);
+  }
+
+  .hero-stats {
+    display: flex; gap: 32px;
+    border-top: 1px solid rgba(201,168,76,.15);
+    padding-top: 32px;
+  }
+  .hero-stat {}
+  .hero-stat .num {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.8rem; font-weight: 900;
+    color: var(--gold);
+    display: block;
+  }
+  .hero-stat .label {
+    font-size: .68rem; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--grey);
+    font-weight: 500;
+  }
+
+  /* Hero right - visual card */
+  .hero-right {
+    display: flex; align-items: center; justify-content: center;
+    padding: 140px 60px 80px;
+    position: relative; z-index: 1;
+  }
+  .hero-card {
+    background: rgba(14,14,14,.9);
+    border: 1px solid rgba(201,168,76,.2);
+    padding: 40px;
+    width: 100%;
+    max-width: 420px;
+    position: relative;
+    box-shadow: 0 40px 80px rgba(0,0,0,.5);
+  }
+  .hero-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .hero-card-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.3rem; font-weight: 700;
+    color: var(--white); margin-bottom: 8px;
+  }
+  .hero-card-sub {
+    font-size: .75rem; color: var(--grey); letter-spacing: .1em;
+    text-transform: uppercase; margin-bottom: 28px;
+  }
+  .profile-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(201,168,76,.08);
+  }
+  .profile-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .profile-icon {
+    width: 40px; height: 40px; min-width: 40px;
+    background: rgba(201,168,76,.1);
+    border: 1px solid rgba(201,168,76,.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+  .profile-item-title {
+    font-size: .82rem; font-weight: 600; color: var(--white);
+    margin-bottom: 3px;
+  }
+  .profile-item-desc {
+    font-size: .72rem; color: var(--grey); line-height: 1.5;
+  }
+  .hero-card-badge {
+    margin-top: 24px;
+    background: rgba(201,168,76,.08);
+    border: 1px solid rgba(201,168,76,.2);
+    padding: 12px 16px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: .74rem; color: var(--gold-light);
+  }
+  .hero-card-badge .icon { font-size: 1rem; }
+
+  /* TICKER */
+  .ticker-wrap {
+    background: var(--gold);
+    padding: 14px 0;
+    overflow: hidden;
+  }
+  .ticker-inner {
+    display: flex; gap: 60px;
+    animation: ticker 30s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .ticker-item {
+    font-size: .72rem; font-weight: 700; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--black);
+    display: flex; align-items: center; gap: 20px;
+  }
+  .ticker-item::after {
+    content: '◆';
+    font-size: .5rem; opacity: .5;
+  }
+
+  /* Section base */
+  section { padding: 100px 60px; }
+  .section-label {
+    display: inline-flex; align-items: center; gap: 12px;
+    margin-bottom: 16px;
+  }
+  .section-label::before {
+    content: ''; width: 32px; height: 1px; background: var(--gold);
+  }
+  .section-label span {
+    font-size: .68rem; letter-spacing: .25em; text-transform: uppercase;
+    color: var(--gold); font-weight: 600;
+  }
+  .section-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 900; color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .section-title .gold { color: var(--gold); }
+  .section-desc {
+    font-size: .95rem; color: var(--grey-light); max-width: 560px;
+    line-height: 1.75; font-weight: 300;
+  }
+
+  /* WHY SECTION */
+  .why-section {
+    background:
+      radial-gradient(ellipse 50% 50% at 80% 50%, rgba(201,168,76,.05), transparent),
+      #080808;
+    position: relative;
+  }
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-top: 60px;
+    align-items: center;
+  }
+  .why-items { display: flex; flex-direction: column; gap: 24px; }
+  .why-item {
+    display: grid; grid-template-columns: 64px 1fr; gap: 20px;
+    padding: 24px;
+    background: rgba(14,14,14,.8);
+    border: 1px solid rgba(201,168,76,.1);
+    border-left: 3px solid var(--gold);
+    transition: all .3s;
+    opacity: 0; transform: translateX(-30px);
+  }
+  .why-item.visible { opacity: 1; transform: translateX(0); }
+  .why-item:hover {
+    border-color: rgba(201,168,76,.4);
+    background: rgba(201,168,76,.04);
+    transform: translateX(6px);
+  }
+  .why-num {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2.5rem; font-weight: 900;
+    color: rgba(201,168,76,.25);
+    line-height: 1;
+    align-self: center;
+  }
+  .why-item-title {
+    font-size: .9rem; font-weight: 700; color: var(--white);
+    margin-bottom: 6px; text-transform: uppercase; letter-spacing: .06em;
+  }
+  .why-item-desc {
+    font-size: .8rem; color: var(--grey-light); line-height: 1.6;
+  }
+
+  .why-right {
+    position: relative;
+  }
+  .why-quote-card {
+    background: rgba(10,10,10,.9);
+    border: 1px solid rgba(201,168,76,.2);
+    padding: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .why-quote-card::before {
+    content: '"';
+    position: absolute; top: -20px; left: 20px;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 12rem; color: rgba(201,168,76,.05);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .why-quote-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+  .why-quote-text {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.4rem; font-style: italic;
+    color: var(--white); line-height: 1.6;
+    margin-bottom: 28px;
+    position: relative; z-index: 1;
+  }
+  .why-quote-author {
+    display: flex; align-items: center; gap: 16px;
+  }
+  .why-quote-avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--black);
+    border: 2px solid var(--gold);
+  }
+  .why-quote-name { font-size: .85rem; font-weight: 600; color: var(--white); }
+  .why-quote-role { font-size: .72rem; color: var(--gold); letter-spacing: .08em; }
+
+  .why-numbers {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: rgba(201,168,76,.1);
+    margin-top: 24px;
+    border: 1px solid rgba(201,168,76,.1);
+  }
+  .why-num-item {
+    background: #0a0a0a;
+    padding: 24px;
+    text-align: center;
+  }
+  .why-num-val {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2rem; font-weight: 900; color: var(--gold);
+    display: block;
+  }
+  .why-num-label {
+    font-size: .67rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--grey); margin-top: 4px;
+  }
+
+  /* PROFIL SECTION */
+  .profil-section {
+    background: var(--black);
+    position: relative;
+    overflow: hidden;
+  }
+  .profil-section::before {
+    content: 'RECRUTE';
+    position: absolute; right: -80px; top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 12rem; font-weight: 900;
+    color: rgba(201,168,76,.025);
+    letter-spacing: .2em;
+    pointer-events: none; white-space: nowrap;
+  }
+
+  .profil-header {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+    margin-bottom: 60px; align-items: end;
+  }
+  .profil-intro { font-size: .95rem; color: var(--grey-light); line-height: 1.75; font-weight: 300; }
+
+  .profil-cards {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .profil-card {
+    background: rgba(14,14,14,.9);
+    border: 1px solid rgba(201,168,76,.1);
+    padding: 32px;
+    position: relative; overflow: hidden;
+    transition: all .4s;
+    opacity: 0; transform: translateY(30px);
+  }
+  .profil-card.visible { opacity: 1; transform: translateY(0); }
+  .profil-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0; transition: opacity .3s;
+  }
+  .profil-card:hover::before { opacity: 1; }
+  .profil-card:hover {
+    border-color: rgba(201,168,76,.3);
+    background: rgba(201,168,76,.03);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0,0,0,.4);
+  }
+  .profil-card-icon {
+    font-size: 2rem; margin-bottom: 20px;
+    display: block;
+  }
+  .profil-card-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--white); margin-bottom: 14px;
+  }
+  .profil-checks {
+    list-style: none; display: flex; flex-direction: column; gap: 10px;
+  }
+  .profil-checks li {
+    font-size: .78rem; color: var(--grey-light); line-height: 1.4;
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+  .profil-checks li::before {
+    content: '›';
+    color: var(--gold); font-size: 1rem; font-weight: 700;
+    flex-shrink: 0; margin-top: -1px;
+  }
+  .profil-card.highlight {
+    background: rgba(201,168,76,.06);
+    border-color: rgba(201,168,76,.35);
+  }
+  .profil-card.highlight .profil-card-title { color: var(--gold); }
+
+  /* AVANTAGES */
+  .avantages-section {
+    background: linear-gradient(180deg, #0a0a0a 0%, #060606 100%);
+  }
+  .avantages-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+    background: rgba(201,168,76,.08);
+    margin-top: 60px;
+  }
+  .avantage-item {
+    background: #0a0a0a;
+    padding: 40px 28px;
+    text-align: center;
+    transition: all .3s;
+    position: relative; overflow: hidden;
+    opacity: 0; transform: translateY(20px);
+  }
+  .avantage-item.visible { opacity: 1; transform: translateY(0); }
+  .avantage-item::after {
+    content: '';
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 0; height: 2px; background: var(--gold);
+    transition: width .4s;
+  }
+  .avantage-item:hover::after { width: 100%; }
+  .avantage-item:hover { background: rgba(201,168,76,.03); }
+  .avantage-icon { font-size: 2.2rem; margin-bottom: 20px; display: block; }
+  .avantage-title {
+    font-size: .88rem; font-weight: 700; color: var(--white);
+    letter-spacing: .05em; margin-bottom: 12px; text-transform: uppercase;
+  }
+  .avantage-desc { font-size: .77rem; color: var(--grey); line-height: 1.6; }
+  .avantage-val {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.6rem; font-weight: 900; color: var(--gold);
+    margin-top: 16px; display: block;
+  }
+
+  /* TEMOIGNAGES EQUIPE */
+  .temoignages-section {
+    background:
+      radial-gradient(ellipse 60% 60% at 20% 50%, rgba(201,168,76,.04), transparent),
+      #080808;
+    position: relative;
+  }
+  .temoignages-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    margin-top: 60px;
+  }
+  .temoignage-card {
+    background: #0d0d0d;
+    border: 1px solid rgba(201,168,76,.12);
+    padding: 36px;
+    position: relative;
+    opacity: 0; transform: translateY(25px);
+    transition: all .4s;
+  }
+  .temoignage-card.visible { opacity: 1; transform: translateY(0); }
+  .temoignage-card:hover {
+    border-color: rgba(201,168,76,.3);
+    box-shadow: 0 20px 40px rgba(0,0,0,.4);
+  }
+  .temoignage-stars {
+    color: var(--gold); font-size: .9rem; margin-bottom: 20px;
+    letter-spacing: 3px;
+  }
+  .temoignage-text {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.05rem; font-style: italic;
+    color: var(--white); line-height: 1.65;
+    margin-bottom: 24px;
+  }
+  .temoignage-divider {
+    width: 30px; height: 1px; background: var(--gold);
+    margin-bottom: 20px;
+  }
+  .temoignage-author {
+    display: flex; align-items: center; gap: 14px;
+  }
+  .temoignage-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem; font-weight: 700; color: var(--black);
+    border: 1.5px solid var(--gold);
+    flex-shrink: 0;
+  }
+  .temoignage-name { font-size: .84rem; font-weight: 600; color: var(--white); }
+  .temoignage-meta { font-size: .7rem; color: var(--gold); }
+  .temoignage-location { font-size: .67rem; color: var(--grey); margin-top: 2px; }
+
+  /* PROCESS */
+  .process-section {
+    background: var(--black);
+  }
+  .process-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    position: relative; margin-top: 60px;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute; top: 36px; left: 12%; right: 12%;
+    height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    z-index: 0;
+  }
+  .process-step {
+    text-align: center; padding: 0 20px;
+    position: relative; z-index: 1;
+    opacity: 0; transform: translateY(20px);
+    transition: all .4s;
+  }
+  .process-step.visible { opacity: 1; transform: translateY(0); }
+  .process-num-wrap {
+    width: 72px; height: 72px; margin: 0 auto 28px;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .process-num {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.5rem; font-weight: 900; color: var(--black);
+  }
+  .process-title {
+    font-size: .88rem; font-weight: 700; color: var(--white);
+    letter-spacing: .06em; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .process-desc { font-size: .78rem; color: var(--grey); line-height: 1.6; }
+
+  /* FORM SECTION */
+  .form-section {
+    background:
+      radial-gradient(ellipse 50% 60% at 50% 0%, rgba(201,168,76,.06), transparent),
+      #080808;
+    position: relative;
+  }
+  .form-container {
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px;
+    margin-top: 60px; align-items: start;
+  }
+  .form-info {}
+  .form-info-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.8rem; font-weight: 700;
+    color: var(--white); margin-bottom: 16px;
+  }
+  .form-info-desc {
+    font-size: .87rem; color: var(--grey-light); line-height: 1.75;
+    margin-bottom: 36px; font-weight: 300;
+  }
+  .form-contact-items { display: flex; flex-direction: column; gap: 16px; }
+  .form-contact-item {
+    display: flex; align-items: center; gap: 14px;
+  }
+  .fci-icon {
+    width: 40px; height: 40px; min-width: 40px;
+    background: rgba(201,168,76,.1);
+    border: 1px solid rgba(201,168,76,.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .95rem;
+  }
+  .fci-label { font-size: .67rem; letter-spacing: .1em; text-transform: uppercase; color: var(--grey); }
+  .fci-value { font-size: .84rem; color: var(--white); font-weight: 500; }
+
+  .form-urgency {
+    margin-top: 36px;
+    background: rgba(192,57,43,.08);
+    border: 1px solid rgba(192,57,43,.3);
+    border-left: 3px solid var(--red);
+    padding: 16px 20px;
+  }
+  .form-urgency-text {
+    font-size: .78rem; color: #e88; line-height: 1.5;
+  }
+  .form-urgency-text strong { color: #f99; }
+
+  /* THE FORM */
+  .cv-form {
+    background: rgba(10,10,10,.9);
+    border: 1px solid rgba(201,168,76,.15);
+    padding: 48px;
+    position: relative;
+  }
+  .cv-form::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light), transparent);
+  }
+  .form-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.35rem; font-weight: 700;
+    color: var(--white); margin-bottom: 8px;
+  }
+  .form-subtitle {
+    font-size: .75rem; color: var(--grey); margin-bottom: 32px;
+    letter-spacing: .08em; text-transform: uppercase;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .form-group label {
+    font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--grey); font-weight: 600;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(201,168,76,.15);
+    color: var(--white);
+    padding: 12px 16px;
+    font-size: .85rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    outline: none;
+    transition: border-color .3s, background .3s;
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: rgba(122,112,96,.6);
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: rgba(201,168,76,.5);
+    background: rgba(201,168,76,.03);
+  }
+  .form-group select option { background: #0e0e0e; color: var(--white); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+
+  /* CV Upload */
+  .cv-upload {
+    border: 1.5px dashed rgba(201,168,76,.25);
+    padding: 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .3s;
+    position: relative;
+    margin-bottom: 24px;
+    background: rgba(201,168,76,.02);
+  }
+  .cv-upload:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,.05);
+  }
+  .cv-upload-icon { font-size: 2rem; margin-bottom: 10px; display: block; }
+  .cv-upload-text {
+    font-size: .82rem; color: var(--grey-light);
+    margin-bottom: 4px;
+  }
+  .cv-upload-text strong { color: var(--gold); }
+  .cv-upload-formats { font-size: .68rem; color: var(--grey); letter-spacing: .08em; }
+  .cv-upload input[type="file"] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer;
+  }
+  .cv-filename {
+    font-size: .78rem; color: var(--gold);
+    text-align: center; margin-top: 8px;
+    display: none;
+  }
+
+  /* Checkboxes */
+  .form-check {
+    display: flex; align-items: flex-start; gap: 12px;
+    margin-bottom: 16px;
+  }
+  .form-check input[type="checkbox"] {
+    appearance: none; width: 16px; height: 16px; min-width: 16px;
+    border: 1px solid rgba(201,168,76,.4);
+    background: transparent; cursor: pointer;
+    position: relative; margin-top: 1px;
+  }
+  .form-check input[type="checkbox"]:checked {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+  .form-check input[type="checkbox"]:checked::after {
+    content: '✓'; position: absolute;
+    top: -1px; left: 2px;
+    font-size: .7rem; color: var(--black); font-weight: 900;
+  }
+  .form-check label {
+    font-size: .75rem; color: var(--grey-light); line-height: 1.5;
+    cursor: pointer;
+  }
+  .form-check label a { color: var(--gold); text-decoration: none; }
+
+  .btn-submit {
+    width: 100%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: var(--black);
+    padding: 18px;
+    font-size: .85rem; font-weight: 700; letter-spacing: .15em;
+    text-transform: uppercase;
+    border: none; cursor: pointer;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: all .3s;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  }
+  .btn-submit:hover {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    box-shadow: 0 16px 40px rgba(201,168,76,.3);
+    transform: translateY(-2px);
+  }
+
+  /* Success */
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 60px 40px;
+  }
+  .form-success.show { display: block; }
+  .success-icon { font-size: 3rem; margin-bottom: 20px; display: block; }
+  .success-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.8rem; color: var(--gold); margin-bottom: 12px;
+  }
+  .success-text { font-size: .9rem; color: var(--grey-light); line-height: 1.7; }
+
+  /* FOOTER */
+  footer {
+    background: #030303;
+    border-top: 1px solid rgba(201,168,76,.1);
+    padding: 40px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .footer-logo img { height: 36px; width: auto; }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a {
+    font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--grey); text-decoration: none;
+    transition: color .3s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy {
+    font-size: .68rem; color: rgba(122,112,96,.5);
+    letter-spacing: .08em;
+  }
+
+  /* Floating WA */
+  .wa-float {
+    position: fixed; bottom: 32px; right: 32px; z-index: 999;
+    width: 56px; height: 56px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 6px 24px rgba(37,211,102,.4);
+    animation: wa-pulse 3s infinite;
+    cursor: pointer;
+  }
+  @keyframes wa-pulse {
+    0%,100%{ box-shadow:0 6px 24px rgba(37,211,102,.4); }
+    50%{ box-shadow:0 6px 40px rgba(37,211,102,.7); }
+  }
+  .wa-float svg { width: 28px; height: 28px; fill: white; }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(30px); transition: all .7s cubic-bezier(.25,.46,.45,.94); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 1024px) {
+    nav { padding: 16px 30px; }
+    section { padding: 80px 30px; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 130px 30px 40px; }
+    .hero-right { padding: 20px 30px 80px; }
+    .why-grid, .profil-header, .form-container { grid-template-columns: 1fr; gap: 40px; }
+    .profil-cards { grid-template-columns: 1fr 1fr; }
+    .avantages-grid { grid-template-columns: 1fr 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .process-steps::before { display: none; }
+    .temoignages-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; text-align: center; }
+    .form-row { grid-template-columns: 1fr; }
+    .cv-form { padding: 28px; }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  function revealAll() {
+    document.querySelectorAll('.reveal, .why-item, .profil-card, .avantage-item, .temoignage-card, .process-step').forEach(function(el) {
+      el.classList.add('visible');
+    });
+  }
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal, .why-item, .profil-card, .avantage-item, .temoignage-card, .process-step').forEach(function(el) { obs.observe(el); });
+    setTimeout(revealAll, 1500);
+  } else {
+    revealAll();
+  }
+});
+</script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><a href="index.html"><img src="logo.png" alt="GoAutoCall"></a></div>
+  <ul class="nav-links"><li><a href="index.html">← Site principal</a></li>
+    <li><a href="#pourquoi">Pourquoi nous</a></li>
+    <li><a href="#profil">Profil recherché</a></li>
+    <li><a href="#avantages">Avantages</a></li>
+    <li><a href="#equipe">L'équipe</a></li>
+    <li><a href="#postuler" class="nav-cta">Postuler maintenant <span class="nav-badge">ON RECRUTE</span></a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+
+  <div class="hero-left">
+    <div class="hero-tag">
+      <span class="dot"></span>
+      <span>Recrutement ouvert — Postes disponibles dès maintenant</span>
+    </div>
+
+    <h1 class="hero-title">
+      Tu vends.<br>
+      Tu convaincs.<br>
+      <span class="underline-gold gold">Tu décroches.</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      GoAutoCall recrute des <strong>téléprospecteurs passionnés d'automobile</strong>, avec un vrai esprit de chasseur et une expérience BtoC confirmée.<br>
+      Rejoins une équipe 100% francophone expatriée, en pleine croissance.
+    </p>
+
+    <div class="hero-btns">
+      <a href="#postuler" class="btn-primary">Envoyer ma candidature</a>
+      <a href="#profil" class="btn-secondary">Voir le profil recherché</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="num">15 ans</span>
+        <span class="label">d'expertise secteur auto</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">+3 000</span>
+        <span class="label">RDV qualifiés / mois</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">120+</span>
+        <span class="label">concessions partenaires</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-card">
+      <p class="hero-card-title">Tu te reconnais ici&nbsp;?</p>
+      <p class="hero-card-sub">Le profil que nous attendons</p>
+
+      <div class="profile-item">
+        <div class="profile-icon">🇫🇷</div>
+        <div>
+          <p class="profile-item-title">Français ou Belge francophone</p>
+          <p class="profile-item-desc">Expatrié ou prêt à l'être. Accent neutre, expression impeccable.</p>
+        </div>
+      </div>
+      <div class="profile-item">
+        <div class="profile-icon">🚗</div>
+        <div>
+          <p class="profile-item-title">Passionné d'automobile</p>
+          <p class="profile-item-desc">Tu connais les marques, les modèles, les arguments. L'auto c'est ta passion.</p>
+        </div>
+      </div>
+      <div class="profile-item">
+        <div class="profile-icon">📞</div>
+        <div>
+          <p class="profile-item-title">Expérience en téléprospection BtoC</p>
+          <p class="profile-item-desc">Tu n'as pas peur du téléphone. Tu aimes convaincre, tu sais relancer.</p>
+        </div>
+      </div>
+      <div class="profile-item">
+        <div class="profile-icon">🏆</div>
+        <div>
+          <p class="profile-item-title">Esprit de performance et défi</p>
+          <p class="profile-item-desc">Les objectifs te motivent. La prime te fait te lever le matin.</p>
+        </div>
+      </div>
+
+      <div class="hero-card-badge">
+        <span class="icon">⚡</span>
+        <span>Prise de poste rapide — Résultats attendus dès J+7</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ticker-item">Postes ouverts immédiatement</span>
+    <span class="ticker-item">Rémunération attractive fixe + commissions</span>
+    <span class="ticker-item">Équipe 100% francophone</span>
+    <span class="ticker-item">Secteur automobile exclusif</span>
+    <span class="ticker-item">Formation au métier incluse</span>
+    <span class="ticker-item">+3 000 RDV qualifiés par mois</span>
+    <span class="ticker-item">Évolution rapide possible</span>
+    <span class="ticker-item">Postes ouverts immédiatement</span>
+    <span class="ticker-item">Rémunération attractive fixe + commissions</span>
+    <span class="ticker-item">Équipe 100% francophone</span>
+    <span class="ticker-item">Secteur automobile exclusif</span>
+    <span class="ticker-item">Formation au métier incluse</span>
+    <span class="ticker-item">+3 000 RDV qualifiés par mois</span>
+    <span class="ticker-item">Évolution rapide possible</span>
+  </div>
+</div>
+
+<!-- POURQUOI NOUS -->
+<section class="why-section" id="pourquoi">
+  <div class="section-label"><span>Pourquoi nous rejoindre</span></div>
+  <h2 class="section-title">Ce n'est pas juste <span class="gold">un job.<br>C'est une carrière.</span></h2>
+
+  <div class="why-grid">
+    <div class="why-items">
+      <div class="why-item reveal">
+        <div class="why-num">01</div>
+        <div>
+          <p class="why-item-title">Un secteur qui ne s'arrête jamais</p>
+          <p class="why-item-desc">L'automobile est le secteur commercial le plus dynamique en France. Les concessions cherchent des leads qualifiés en permanence — tu es au cœur de la machine.</p>
+        </div>
+      </div>
+      <div class="why-item reveal" style="transition-delay:.1s">
+        <div class="why-num">02</div>
+        <div>
+          <p class="why-item-title">Un management qui comprend le terrain</p>
+          <p class="why-item-desc">Nos managers sont d'anciens téléprospecteurs. Pas de théorie creuse, que du concret. Tu es coaché par des gens qui ont vécu exactement ce que tu vis.</p>
+        </div>
+      </div>
+      <div class="why-item reveal" style="transition-delay:.2s">
+        <div class="why-num">03</div>
+        <div>
+          <p class="why-item-title">Des outils CRM de pointe</p>
+          <p class="why-item-desc">Fichiers qualifiés, scripts optimisés, CRM personnalisé et reporting en temps réel. Tu passes ton temps à vendre, pas à chercher tes leads.</p>
+        </div>
+      </div>
+      <div class="why-item reveal" style="transition-delay:.3s">
+        <div class="why-num">04</div>
+        <div>
+          <p class="why-item-title">Une progression réelle et rapide</p>
+          <p class="why-item-desc">Team leader, responsable de campagne, coordinateur client — les meilleurs évoluent vite chez GoAutoCall. Le mérite est reconnu et récompensé.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="why-right">
+      <div class="why-quote-card reveal">
+        <p class="why-quote-text">"Je venais du retail automobile à Lyon. En 6 mois chez GoAutoCall, j'ai trouvé le perfect match entre ma passion pour la voiture et mon goût du challenge téléphonique. Les commissions parlent d'elles-mêmes."</p>
+        <div class="why-quote-author">
+          <div class="why-quote-avatar">A</div>
+          <div>
+            <p class="why-quote-name">Alexandre M.</p>
+            <p class="why-quote-role">Senior Téléprospecteur — 3 ans d'ancienneté</p>
+          </div>
+        </div>
+      </div>
+      <div class="why-numbers reveal" style="transition-delay:.15s">
+        <div class="why-num-item">
+          <span class="why-num-val">92%</span>
+          <span class="why-num-label">Taux de rétention équipe</span>
+        </div>
+        <div class="why-num-item">
+          <span class="why-num-val">+35%</span>
+          <span class="why-num-label">Salaire vs marché</span>
+        </div>
+        <div class="why-num-item">
+          <span class="why-num-val">48h</span>
+          <span class="why-num-label">Temps d'intégration</span>
+        </div>
+        <div class="why-num-item">
+          <span class="why-num-val">100%</span>
+          <span class="why-num-label">Remote friendly</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFIL RECHERCHE -->
+<section class="profil-section" id="profil">
+  <div class="profil-header">
+    <div>
+      <div class="section-label"><span>Profil recherché</span></div>
+      <h2 class="section-title">Le profil<br><span class="gold">GoAutoCall</span></h2>
+    </div>
+    <p class="profil-intro">
+      On ne recrute pas des téléopérateurs lambda. On cherche des <strong>profils atypiques</strong> : des gens qui ont le flow commercial, une vraie culture automobile et une passion pour la vente directe. Si tu te retrouves dans les critères ci-dessous, ta place est ici.
+    </p>
+  </div>
+
+  <div class="profil-cards">
+    <div class="profil-card reveal">
+      <span class="profil-card-icon">🌍</span>
+      <h3 class="profil-card-title">Origine & Langue</h3>
+      <ul class="profil-checks">
+        <li>Français(e) ou Belge francophone natif(ve)</li>
+        <li>Expression orale parfaite, diction claire et naturelle</li>
+        <li>Expatrié(e) ou en mobilité internationale</li>
+        <li>Maîtrise des codes culturels français</li>
+        <li>Connaissance du marché automobile français souhaitée</li>
+      </ul>
+    </div>
+
+    <div class="profil-card highlight reveal" style="transition-delay:.1s">
+      <span class="profil-card-icon">📞</span>
+      <h3 class="profil-card-title">Expérience Terrain</h3>
+      <ul class="profil-checks">
+        <li>Minimum 1 an en téléprospection BtoC réussie</li>
+        <li>Expérience vente automobile (concession, VO, financement…)</li>
+        <li>Maîtrise des techniques de relance et traitement d'objections</li>
+        <li>À l'aise avec les CRM et outils de reporting</li>
+        <li>Historique de performance chiffré apprécié</li>
+      </ul>
+    </div>
+
+    <div class="profil-card reveal" style="transition-delay:.2s">
+      <span class="profil-card-icon">🔥</span>
+      <h3 class="profil-card-title">Personnalité & Mindset</h3>
+      <ul class="profil-checks">
+        <li>Orientation résultats, goût du challenge</li>
+        <li>Résilience et mental d'acier face au refus</li>
+        <li>Autonome, organisé(e) et ponctuel(le)</li>
+        <li>Passionné(e) d'automobile, tu connais ton sujet</li>
+        <li>Esprit d'équipe et envie de progresser vite</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:40px; padding:28px 36px; background:rgba(201,168,76,.06); border:1px solid rgba(201,168,76,.2); border-left:3px solid var(--gold); display:flex; align-items:center; gap:24px;" class="reveal">
+    <span style="font-size:2rem">💡</span>
+    <div>
+      <p style="font-size:.88rem; font-weight:600; color:var(--white); margin-bottom:6px;">Débutant avec une forte motivation ?</p>
+      <p style="font-size:.8rem; color:var(--grey-light); line-height:1.6;">Si tu n'as pas encore d'expérience en téléprospection automobile mais que tu as un parcours en vente, une vraie passion pour l'auto et une motivation hors normes — envoie tout de même ta candidature. Nous formons les talents qui en veulent vraiment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AVANTAGES -->
+<section class="avantages-section" id="avantages">
+  <div style="text-align:center">
+    <div class="section-label" style="justify-content:center"><span>Ce que nous offrons</span></div>
+    <h2 class="section-title">Travailler chez GoAutoCall,<br>c'est <span class="gold">concret.</span></h2>
+    <p class="section-desc" style="margin:0 auto">Pas de promesses vagues. Des avantages réels, une rémunération juste et un environnement qui te fait progresser.</p>
+  </div>
+
+  <div class="avantages-grid">
+    <div class="avantage-item reveal">
+      <span class="avantage-icon">💰</span>
+      <p class="avantage-title">Rémunération attractive</p>
+      <p class="avantage-desc">Salaire fixe compétitif + commissions déplafonnées sur chaque RDV honoré</p>
+      <span class="avantage-val">Fixe + %</span>
+    </div>
+    <div class="avantage-item reveal" style="transition-delay:.1s">
+      <span class="avantage-icon">🏠</span>
+      <p class="avantage-title">100% Remote</p>
+      <p class="avantage-desc">Travaille depuis chez toi, depuis n'importe quel pays. Tout est digitalisé.</p>
+      <span class="avantage-val">Full Remote</span>
+    </div>
+    <div class="avantage-item reveal" style="transition-delay:.2s">
+      <span class="avantage-icon">📈</span>
+      <p class="avantage-title">Évolution rapide</p>
+      <p class="avantage-desc">Les meilleurs deviennent team leaders en moins de 12 mois. La voie est tracée.</p>
+      <span class="avantage-val">— 12 mois</span>
+    </div>
+    <div class="avantage-item reveal" style="transition-delay:.3s">
+      <span class="avantage-icon">🎓</span>
+      <p class="avantage-title">Formation complète</p>
+      <p class="avantage-desc">Onboarding structuré, scripts premium, coaching terrain dès J+1.</p>
+      <span class="avantage-val">Dès J+1</span>
+    </div>
+    <div class="avantage-item reveal" style="transition-delay:.05s">
+      <span class="avantage-icon">🚀</span>
+      <p class="avantage-title">Fichiers qualifiés</p>
+      <p class="avantage-desc">Tu n'appelles pas dans le vide. Nos fichiers sont segmentés, ciblés et frais.</p>
+      <span class="avantage-val">Top Leads</span>
+    </div>
+    <div class="avantage-item reveal" style="transition-delay:.15s">
+      <span class="avantage-icon">🤝</span>
+      <p class="avantage-title">Ambiance équipe</p>
+      <p class="avantage-desc">Challenge inter-équipes, incentives mensuels, team events. On gagne ensemble.</p>
+      <span class="avantage-val">Team Spirit</span>
+    </div>
+    <div class="avantage-item reveal" style="transition-delay:.25s">
+      <span class="avantage-icon">⚙️</span>
+      <p class="avantage-title">Outils premium</p>
+      <p class="avantage-desc">CRM dédié, click-to-call, reporting temps réel, scripts vivants optimisés IA.</p>
+      <span class="avantage-val">CRM Pro</span>
+    </div>
+    <div class="avantage-item reveal" style="transition-delay:.35s">
+      <span class="avantage-icon">🏆</span>
+      <p class="avantage-title">Primes de performance</p>
+      <p class="avantage-desc">Bonus mensuel top performer, challenge trimestriel, récompenses exceptionnelles.</p>
+      <span class="avantage-val">Bonus+</span>
+    </div>
+  </div>
+</section>
+
+<!-- TEMOIGNAGES EQUIPE -->
+<section class="temoignages-section" id="equipe">
+  <div style="text-align:center; margin-bottom:0">
+    <div class="section-label" style="justify-content:center"><span>Ils ont rejoint l'équipe</span></div>
+    <h2 class="section-title">La parole est <span class="gold">à l'équipe.</span></h2>
+    <p class="section-desc" style="margin:0 auto">Pas de discours commercial. Voici ce que disent ceux qui ont franchi le pas.</p>
+  </div>
+
+  <div class="temoignages-grid">
+    <div class="temoignage-card reveal">
+      <div class="temoignage-stars">★★★★★</div>
+      <p class="temoignage-text">"J'avais 3 ans de vente en concession Renault à Lille avant de rejoindre GoAutoCall. Le passage au téléphone m'a fait peur au début. Aujourd'hui c'est moi qui forme les nouvelles recrues. Le secteur auto, je le connais — ici on me laisse l'exploiter à fond."</p>
+      <div class="temoignage-divider"></div>
+      <div class="temoignage-author">
+        <div class="temoignage-avatar">S</div>
+        <div>
+          <p class="temoignage-name">Sophie L.</p>
+          <p class="temoignage-meta">Team Leader Pôle VO — 2 ans chez GoAutoCall</p>
+          <p class="temoignage-location">📍 Expatriée depuis Barcelone</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="temoignage-card reveal" style="transition-delay:.12s">
+      <div class="temoignage-stars">★★★★★</div>
+      <p class="temoignage-text">"Venant d'une boîte de télémarketing généraliste, rejoindre GoAutoCall c'était un changement de dimension. Les scripts sont précis, les fichiers sont chauds, et les concessions attendent vraiment nos appels. Mon taux de transformation a explosé le premier mois."</p>
+      <div class="temoignage-divider"></div>
+      <div class="temoignage-author">
+        <div class="temoignage-avatar">K</div>
+        <div>
+          <p class="temoignage-name">Kevin B.</p>
+          <p class="temoignage-meta">Senior Téléprospecteur VN Premium — 18 mois</p>
+          <p class="temoignage-location">📍 Expatrié depuis Casablanca</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="temoignage-card reveal" style="transition-delay:.24s">
+      <div class="temoignage-stars">★★★★★</div>
+      <p class="temoignage-text">"Ce qui m'a convaincu c'est la culture performance. Ici, si tu bosses, tu gagnes. Point. Pas de plafond artificiel, pas de jalousie. On est une équipe de Belges et Français qui aiment les bagnoles et qui bossent sérieux. C'est simple et ça marche."</p>
+      <div class="temoignage-divider"></div>
+      <div class="temoignage-author">
+        <div class="temoignage-avatar">T</div>
+        <div>
+          <p class="temoignage-name">Thomas V.</p>
+          <p class="temoignage-meta">Téléprospecteur Financement & Reprise — 14 mois</p>
+          <p class="temoignage-location">📍 Belge expatrié depuis Dubai</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS CANDIDATURE -->
+<section class="process-section" id="process">
+  <div style="text-align:center">
+    <div class="section-label" style="justify-content:center"><span>Comment ça se passe</span></div>
+    <h2 class="section-title">Candidater chez GoAutoCall,<br>c'est <span class="gold">simple et rapide.</span></h2>
+  </div>
+
+  <div class="process-steps">
+    <div class="process-step reveal">
+      <div class="process-num-wrap"><span class="process-num">1</span></div>
+      <p class="process-title">Tu envoies ton CV</p>
+      <p class="process-desc">Remplis le formulaire ci-dessous avec ton profil et dépose ton CV. Ça prend 3 minutes.</p>
+    </div>
+    <div class="process-step reveal" style="transition-delay:.1s">
+      <div class="process-num-wrap"><span class="process-num">2</span></div>
+      <p class="process-title">Entretien rapide</p>
+      <p class="process-desc">Notre responsable RH te contacte sous 48h pour un échange téléphonique de 20 minutes.</p>
+    </div>
+    <div class="process-step reveal" style="transition-delay:.2s">
+      <div class="process-num-wrap"><span class="process-num">3</span></div>
+      <p class="process-title">Test de voix & pitch</p>
+      <p class="process-desc">Un exercice rapide de simulation d'appel pour évaluer ton aisance et ton flow commercial.</p>
+    </div>
+    <div class="process-step reveal" style="transition-delay:.3s">
+      <div class="process-num-wrap"><span class="process-num">4</span></div>
+      <p class="process-title">Intégration & Go</p>
+      <p class="process-desc">Formation de 2 jours, scripts en main, CRM configuré. Tu es opérationnel(le) dès la semaine suivante.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULAIRE -->
+<section class="form-section" id="postuler">
+  <div style="text-align:center">
+    <div class="section-label" style="justify-content:center"><span>Candidature</span></div>
+    <h2 class="section-title">Prêt(e) à rejoindre<br>l'élite <span class="gold">GoAutoCall ?</span></h2>
+    <p class="section-desc" style="margin:0 auto 0">Envoie ta candidature maintenant. Notre équipe RH revient vers toi sous 48h ouvrées.</p>
+  </div>
+
+  <div class="form-container">
+    <div class="form-info">
+      <h3 class="form-info-title">On veut te connaître.</h3>
+      <p class="form-info-desc">
+        Inutile d'envoyer un CV parfait. Ce qu'on cherche, c'est ta personnalité, ton expérience terrain et ta motivation réelle. Sois honnête, sois toi-même — c'est comme ça qu'on recrute les meilleurs.
+      </p>
+
+      <div class="form-contact-items">
+        <div class="form-contact-item">
+          <div class="fci-icon">📧</div>
+          <div>
+            <p class="fci-label">Email RH</p>
+            <p class="fci-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c7b5a2a4b5b2b3a2aaa2a9b387a0a8a6b2b3a8a4a6ababe9a1b5">[email&#160;protected]</a></p>
+          </div>
+        </div>
+        <div class="form-contact-item">
+          <div class="fci-icon">📱</div>
+          <div>
+            <p class="fci-label">WhatsApp RH</p>
+            <p class="fci-value">+33 (0)1 XX XX XX XX</p>
+          </div>
+        </div>
+        <div class="form-contact-item">
+          <div class="fci-icon">💼</div>
+          <div>
+            <p class="fci-label">LinkedIn</p>
+            <p class="fci-value">linkedin.com/company/goautocall</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-urgency">
+        <p class="form-urgency-text">
+          <strong>⚡ Recrutement actif en cours.</strong><br>
+          Nous cherchons à intégrer de nouvelles recrues rapidement. Les candidatures sont étudiées au fil de l'eau — ne tarde pas.
+        </p>
+      </div>
+    </div>
+
+    <div class="cv-form" id="cvForm">
+      <p class="form-title">Dépose ta candidature</p>
+      <p class="form-subtitle">Tous les champs sont importants — sois précis(e)</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Prénom *</label>
+          <input type="text" id="prenom" placeholder="Ton prénom">
+        </div>
+        <div class="form-group">
+          <label>Nom *</label>
+          <input type="text" id="nom" placeholder="Ton nom">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" id="email" placeholder="ton@email.com">
+        </div>
+        <div class="form-group">
+          <label>Téléphone / WhatsApp *</label>
+          <input type="tel" id="tel" placeholder="+33 6 XX XX XX XX">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nationalité *</label>
+          <select id="nationalite">
+            <option value="">Sélectionne</option>
+            <option>Français(e)</option>
+            <option>Belge francophone</option>
+            <option>Suisse francophone</option>
+            <option>Autre francophone</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Pays de résidence *</label>
+          <input type="text" id="pays" placeholder="Ex : Maroc, Espagne, France…">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Expérience en téléprospection *</label>
+        <select id="experience">
+          <option value="">Sélectionne ton niveau</option>
+          <option>Débutant motivé — moins de 6 mois</option>
+          <option>6 mois à 1 an d'expérience</option>
+          <option>1 à 3 ans d'expérience confirmée</option>
+          <option>+3 ans — profil senior</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Lien avec le secteur automobile</label>
+        <select id="auto">
+          <option value="">Sélectionne</option>
+          <option>Passionné(e) auto — consommateur averti</option>
+          <option>Expérience en concession automobile</option>
+          <option>Expérience en téléprospection automobile</option>
+          <option>Travaillé dans l'industrie auto</option>
+          <option>Pas d'expérience directe — très motivé(e)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Pitch motivation — Pourquoi GoAutoCall ? *</label>
+        <textarea id="motivation" placeholder="Parle-nous de toi en quelques lignes. Qu'est-ce qui te motive ? Qu'est-ce qui te distingue des autres candidats ? Sois direct(e), sois toi."></textarea>
+      </div>
+
+      <div class="cv-upload" id="cvUpload">
+        <input type="file" id="cvFile" accept=".pdf,.doc,.docx" onchange="handleFile(this)">
+        <span class="cv-upload-icon">📎</span>
+        <p class="cv-upload-text"><strong>Clique pour joindre ton CV</strong> ou glisse-dépose ici</p>
+        <p class="cv-upload-formats">PDF, DOC, DOCX — Max 5 MB</p>
+      </div>
+      <p class="cv-filename" id="cvFilename"></p>
+
+      <div class="form-check">
+        <input type="checkbox" id="rgpd">
+        <label for="rgpd">J'accepte que mes données soient utilisées dans le cadre de ce recrutement. Elles ne seront pas transmises à des tiers. <a href="index.html">Politique de confidentialité</a></label>
+      </div>
+
+      <button class="btn-submit" onclick="submitForm()">
+        ✈️ &nbsp; Envoyer ma candidature
+      </button>
+
+      <div class="form-success" id="formSuccess">
+        <span class="success-icon">🎯</span>
+        <h3 class="success-title">Candidature reçue !</h3>
+        <p class="success-text">
+          Merci pour ta candidature. Notre équipe RH va l'étudier avec attention.<br>
+          Tu recevras une réponse sous <strong>48h ouvrées</strong>.<br><br>
+          En attendant, n'hésite pas à nous suivre sur LinkedIn.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo"><img src="logo.png" alt="GoAutoCall"></div>
+  <div class="footer-links">
+    <a href="index.html">← Site principal</a>
+    <a href="#postuler">Postuler</a>
+    <a href="index.html">Mentions légales</a>
+    <a href="index.html">Confidentialité</a>
+  </div>
+  <p class="footer-copy">© 2025 GoAutoCall — Recrutement. Tous droits réservés.</p>
+</footer>
+
+<!-- WhatsApp -->
+<a href="https://wa.me/33XXXXXXXXX" class="wa-float" target="_blank" title="Contactez-nous sur WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.transform = `translate(${e.clientX - 5}px, ${e.clientY - 5}px)`;
+    ring.style.transform = `translate(${e.clientX - 18}px, ${e.clientY - 18}px)`;
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal, .why-item, .profil-card, .avantage-item, .temoignage-card, .process-step').forEach(el => observer.observe(el));
+
+  // File upload display
+  function handleFile(input) {
+    const f = input.files[0];
+    if (f) {
+      const fname = document.getElementById('cvFilename');
+      fname.textContent = '✅ ' + f.name;
+      fname.style.display = 'block';
+      document.getElementById('cvUpload').style.borderColor = 'var(--gold)';
+      document.getElementById('cvUpload').style.background = 'rgba(201,168,76,.06)';
+    }
+  }
+
+  // Form submit
+  function submitForm() {
+    const prenom = document.getElementById('prenom').value;
+    const email = document.getElementById('email').value;
+    const rgpd = document.getElementById('rgpd').checked;
+    const motivation = document.getElementById('motivation').value;
+
+    if (!prenom || !email || !motivation) {
+      alert('Merci de remplir tous les champs obligatoires (*)');
+      return;
+    }
+    if (!rgpd) {
+      alert('Merci d\'accepter la politique de confidentialité');
+      return;
+    }
+
+    // Show success
+    const form = document.getElementById('cvForm');
+    const success = document.getElementById('formSuccess');
+    // Hide form fields, show success
+    Array.from(form.children).forEach(child => {
+      if (child !== success) child.style.display = 'none';
+    });
+    success.classList.add('show');
+    success.style.display = 'block';
+
+    // Scroll to success
+    success.scrollIn
