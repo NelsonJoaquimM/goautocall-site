@@ -1266,8 +1266,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="avantage-item reveal">
       <span class="avantage-icon">💰</span>
       <p class="avantage-title">Rémunération attractive</p>
-      <p class="avantage-desc">Paimement à la commissions déplafonnées sur chaque RDV honoré venu sans conditions</p>
-      <span class="avantage-val">Fort %</span>
+      <p class="avantage-desc">Salaire fixe compétitif + commissions déplafonnées sur chaque RDV honoré</p>
+      <span class="avantage-val">Fixe + %</span>
     </div>
     <div class="avantage-item reveal" style="transition-delay:.1s">
       <span class="avantage-icon">🏠</span>
@@ -1446,35 +1446,38 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 
     <div class="cv-form" id="cvForm">
+      <form name="candidature-goautocall" method="POST" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" id="cvFormInner">
+        <input type="hidden" name="form-name" value="candidature-goautocall">
+        <p style="display:none"><input name="bot-field"></p>
       <p class="form-title">Dépose ta candidature</p>
       <p class="form-subtitle">Tous les champs sont importants — sois précis(e)</p>
 
       <div class="form-row">
         <div class="form-group">
           <label>Prénom *</label>
-          <input type="text" id="prenom" placeholder="Ton prénom">
+          <input type="text" id="prenom" name="prenom" placeholder="Ton prénom">
         </div>
         <div class="form-group">
           <label>Nom *</label>
-          <input type="text" id="nom" placeholder="Ton nom">
+          <input type="text" id="nom" name="nom" placeholder="Ton nom">
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group">
           <label>Email *</label>
-          <input type="email" id="email" placeholder="ton@email.com">
+          <input type="email" id="email" name="email" placeholder="ton@email.com">
         </div>
         <div class="form-group">
           <label>Téléphone / WhatsApp *</label>
-          <input type="tel" id="tel" placeholder="+33 6 XX XX XX XX">
+          <input type="tel" id="tel" name="telephone" placeholder="+33 6 XX XX XX XX">
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group">
           <label>Nationalité *</label>
-          <select id="nationalite">
+          <select id="nationalite" name="nationalite">
             <option value="">Sélectionne</option>
             <option>Français(e)</option>
             <option>Belge francophone</option>
@@ -1484,13 +1487,13 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         <div class="form-group">
           <label>Pays de résidence *</label>
-          <input type="text" id="pays" placeholder="Ex : Maroc, Espagne, France…">
+          <input type="text" id="pays" name="pays" placeholder="Ex : Maroc, Espagne, France…">
         </div>
       </div>
 
       <div class="form-group">
         <label>Expérience en téléprospection *</label>
-        <select id="experience">
+        <select id="experience" name="experience">
           <option value="">Sélectionne ton niveau</option>
           <option>Débutant motivé — moins de 6 mois</option>
           <option>6 mois à 1 an d'expérience</option>
@@ -1501,7 +1504,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       <div class="form-group">
         <label>Lien avec le secteur automobile</label>
-        <select id="auto">
+        <select id="auto" name="lien_automobile">
           <option value="">Sélectionne</option>
           <option>Passionné(e) auto — consommateur averti</option>
           <option>Expérience en concession automobile</option>
@@ -1513,11 +1516,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
       <div class="form-group">
         <label>Pitch motivation — Pourquoi GoAutoCall ? *</label>
-        <textarea id="motivation" placeholder="Parle-nous de toi en quelques lignes. Qu'est-ce qui te motive ? Qu'est-ce qui te distingue des autres candidats ? Sois direct(e), sois toi."></textarea>
+        <textarea id="motivation" name="motivation" placeholder="Parle-nous de toi en quelques lignes. Qu'est-ce qui te motive ? Qu'est-ce qui te distingue des autres candidats ? Sois direct(e), sois toi."></textarea>
       </div>
 
       <div class="cv-upload" id="cvUpload">
-        <input type="file" id="cvFile" accept=".pdf,.doc,.docx" onchange="handleFile(this)">
+        <input type="file" id="cvFile" name="cv" accept=".pdf,.doc,.docx" onchange="handleFile(this)">
         <span class="cv-upload-icon">📎</span>
         <p class="cv-upload-text"><strong>Clique pour joindre ton CV</strong> ou glisse-dépose ici</p>
         <p class="cv-upload-formats">PDF, DOC, DOCX — Max 5 MB</p>
@@ -1525,13 +1528,14 @@ document.addEventListener('DOMContentLoaded', function() {
       <p class="cv-filename" id="cvFilename"></p>
 
       <div class="form-check">
-        <input type="checkbox" id="rgpd">
+        <input type="checkbox" id="rgpd" name="rgpd">
         <label for="rgpd">J'accepte que mes données soient utilisées dans le cadre de ce recrutement. Elles ne seront pas transmises à des tiers. <a href="index.html">Politique de confidentialité</a></label>
       </div>
 
-      <button class="btn-submit" onclick="submitForm()">
+      <button type="submit" class="btn-submit">
         ✈️ &nbsp; Envoyer ma candidature
       </button>
+      </form>
 
       <div class="form-success" id="formSuccess">
         <span class="success-icon">🎯</span>
