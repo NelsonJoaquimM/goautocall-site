@@ -251,7 +251,7 @@
       transition:border-color .3s;
     }
     .member:hover { border-color:var(--border-h); }
-    .member-avatar {
+    .member-avatar { display:none;
       width:100%; padding-bottom:110%;
       background:linear-gradient(135deg, #1a1810, #0e0d0a);
       position:relative; overflow:hidden;
@@ -975,18 +975,18 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="kpi-grid">
         <div class="kpi">
           <div class="kpi-num" data-target="15">0</div>
-          <div class="kpi-label">Ans d'expertise<br>téléprospection auto</div>
+          <div class="kpi-label">Ans d'expertise<br>téléprospection</div>
         </div>
         <div class="kpi">
-          <div class="kpi-num" data-target="3000" data-suffix="+">0</div>
+          <div class="kpi-num" data-target="1000" data-suffix="+">0</div>
           <div class="kpi-label">RDV qualifiés<br>générés chaque mois</div>
         </div>
         <div class="kpi">
-          <div class="kpi-num" data-target="98" data-suffix="%">0</div>
+          <div class="kpi-num" data-target="70" data-suffix="%">0</div>
           <div class="kpi-label">Taux de satisfaction<br>client moyen</div>
         </div>
         <div class="kpi">
-          <div class="kpi-num" data-target="120" data-suffix="+">0</div>
+          <div class="kpi-num" data-target="35" data-suffix="+">0</div>
           <div class="kpi-label">Concessions partenaires<br>à travers la France</div>
         </div>
       </div>
@@ -1001,16 +1001,16 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- TICKER -->
 <div class="ticker">
   <div class="ticker-track">
-    <span class="ticker-item">+3 000 RDV qualifiés / mois <span class="ticker-dot"></span></span>
+    <span class="ticker-item">+2 000 RDV qualifiés / mois <span class="ticker-dot"></span></span>
     <span class="ticker-item">15 ans d'expertise automobile <span class="ticker-dot"></span></span>
     <span class="ticker-item">Équipes françaises expertes <span class="ticker-dot"></span></span>
-    <span class="ticker-item">+120 concessions partenaires <span class="ticker-dot"></span></span>
+    <span class="ticker-item">+50 concessions partenaires <span class="ticker-dot"></span></span>
     <span class="ticker-item">Taux de show 78% en moyenne <span class="ticker-dot"></span></span>
     <span class="ticker-item">VN · VO · Financement · Reprise <span class="ticker-dot"></span></span>
-    <span class="ticker-item">+3 000 RDV qualifiés / mois <span class="ticker-dot"></span></span>
+    <span class="ticker-item">+2 000 RDV qualifiés / mois <span class="ticker-dot"></span></span>
     <span class="ticker-item">15 ans d'expertise automobile <span class="ticker-dot"></span></span>
     <span class="ticker-item">Équipes françaises expertes <span class="ticker-dot"></span></span>
-    <span class="ticker-item">+120 concessions partenaires <span class="ticker-dot"></span></span>
+    <span class="ticker-item">+50 concessions partenaires <span class="ticker-dot"></span></span>
     <span class="ticker-item">Taux de show 78% en moyenne <span class="ticker-dot"></span></span>
     <span class="ticker-item">VN · VO · Financement · Reprise <span class="ticker-dot"></span></span>
   </div>
@@ -1117,11 +1117,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <!-- Team cards -->
   <div class="team-members">
     <div class="member reveal">
-      <div class="member-avatar">
-        <div class="member-initials">AM</div>
-        <div class="member-flag">🇫🇷</div>
-        <div class="member-bar"></div>
-      </div>
+      
       <div class="member-info">
         <div class="member-name">Alexandre M.</div>
         <div class="member-role">Team Leader — Prospection VN</div>
@@ -1130,11 +1126,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     </div>
     <div class="member reveal rd1">
-      <div class="member-avatar">
-        <div class="member-initials">SL</div>
-        <div class="member-flag">🇫🇷</div>
-        <div class="member-bar"></div>
-      </div>
+      
       <div class="member-info">
         <div class="member-name">Sophie L.</div>
         <div class="member-role">Senior Agent — VO & Reprise</div>
@@ -1143,11 +1135,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     </div>
     <div class="member reveal rd2">
-      <div class="member-avatar">
-        <div class="member-initials">KB</div>
-        <div class="member-flag">🇫🇷</div>
-        <div class="member-bar"></div>
-      </div>
+      
       <div class="member-info">
         <div class="member-name">Kevin B.</div>
         <div class="member-role">Agent — Campagnes Sortantes</div>
@@ -1156,11 +1144,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     </div>
     <div class="member reveal rd3">
-      <div class="member-avatar">
-        <div class="member-initials">ML</div>
-        <div class="member-flag">🇫🇷</div>
-        <div class="member-bar"></div>
-      </div>
+      
       <div class="member-info">
         <div class="member-name">Marine L.</div>
         <div class="member-role">Agent — Relance & Fidélisation</div>
@@ -1183,7 +1167,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <div class="results-grid">
     <div class="result-card featured reveal">
       <div class="result-icon">📞</div>
-      <div class="result-num counter" data-target="3000" data-suffix="+">0+</div>
+      <div class="result-num counter" data-target="2000" data-suffix="+">0+</div>
       <div class="result-label">RDV qualifiés par mois</div>
       <div class="result-desc">Rendez-vous pris, confirmés et transmis avec fiche prospect complète. Qualifiés selon vos critères exacts.</div>
     </div>
@@ -1195,9 +1179,9 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <div class="result-card reveal rd2">
       <div class="result-icon">🚗</div>
-      <div class="result-num counter" data-target="120" data-suffix="+">0+</div>
+      <div class="result-num counter" data-target="50" data-suffix="+">0+</div>
       <div class="result-label">Concessions partenaires</div>
-      <div class="result-desc">Plus de 120 concessions et groupes automobiles nous font confiance pour leur développement commercial.</div>
+      <div class="result-desc">Plus de 50 concessions et groupes automobiles nous font confiance pour leur développement commercial.</div>
     </div>
     <div class="result-card reveal rd1">
       <div class="result-icon">⏱️</div>
@@ -1513,12 +1497,28 @@ document.addEventListener('DOMContentLoaded', function() {
   }, 1000);
 
   // FAQ accordion
-  document.querySelectorAll('.faq-q').forEach(q=>{
-    q.addEventListener('click',()=>{
-      const item=q.parentElement;
-      const open=item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
-      if(!open) item.classList.add('open');
+  // FAQ accordion — version robuste
+  document.querySelectorAll('.faq-q').forEach(function(q) {
+    q.style.cursor = 'pointer';
+    q.addEventListener('click', function() {
+      var item = q.closest('.faq-item');
+      var isOpen = item.classList.contains('open');
+      // Ferme tout
+      document.querySelectorAll('.faq-item').forEach(function(i) {
+        i.classList.remove('open');
+        var a = i.querySelector('.faq-a');
+        if(a) { a.style.maxHeight = '0'; a.style.paddingBottom = '0'; }
+        var icon = i.querySelector('.faq-icon');
+        if(icon) icon.style.transform = 'rotate(0deg)';
+      });
+      // Ouvre le cliqué si pas déjà ouvert
+      if(!isOpen) {
+        item.classList.add('open');
+        var a = item.querySelector('.faq-a');
+        if(a) { a.style.maxHeight = '500px'; a.style.paddingBottom = '20px'; }
+        var icon = item.querySelector('.faq-icon');
+        if(icon) icon.style.transform = 'rotate(45deg)';
+      }
     });
   });
 
