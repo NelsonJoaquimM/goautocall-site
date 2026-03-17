@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta name="google-site-verification" content="KCPLXmfQHRIhLlPIa2AR9hf3A_enbxd4CLsgFXS7sok" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GoAutoCall — Lead Generation & Appointment Setting | Secteur Automobile</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <meta name="description" content="15 ans d'expertise en téléprospection automobile. Des milliers de rendez-vous qualifiés chaque mois. Équipes françaises expertes dédiées à votre performance commerciale."/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:      #060606;
+      --deep:       #0c0b09;
+      --card:       #0f0e0b;
+      --gold:       #c9a84c;
+      --gold-light: #e2c87a;
+      --gold-dim:   #9a7830;
+      --gold-pale:  rgba(201,168,76,0.08);
+      --white:      #f4efe6;
+      --grey:       #7a7060;
+      --grey-light: #a09080;
+      --border:     rgba(201,168,76,0.15);
+      --border-h:   rgba(201,168,76,0.4);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: auto;
+    }
+
+    /* ── CURSOR ── */
+    #cur  { position:fixed; width:10px; height:10px; background:var(--gold); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:width .3s,height .3s; }
+    #ring { position:fixed; width:36px; height:36px; border:1px solid rgba(201,168,76,.45); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .3s,height .3s; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; inset: 0 0 auto 0;
+      z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 64px;
+      background: linear-gradient(to bottom, rgba(6,6,6,.98) 60%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(201,168,76,.07);
+    }
+    .nav-links { display:flex; gap:36px; list-style:none; }
+    .nav-links a { text-decoration:none; color:var(--grey-light); font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; transition:color .3s; }
+    .nav-links a:hover { color:var(--gold); }
+    .nav-cta { border:1px solid var(--gold) !important; color:var(--gold) !important; padding:10px 22px; transition:background .3s, color .3s !important; }
+    .nav-cta:hover { background:var(--gold) !important; color:var(--black) !important; }
+
+    /* ── LOGO SVG ── */
+    .logo-svg text { font-family:'Playfair Display',serif; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 140px 64px 80px;
+      gap: 60px;
+    }
+    .hero::before {
+      content:'';
+      position:absolute; inset:0;
+      background:
+        radial-gradient(ellipse 70% 80% at 100% 40%, rgba(201,168,76,.05) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 0% 100%, rgba(201,168,76,.03) 0%, transparent 50%);
+    }
+    .hero-grain {
+      position:absolute; inset:0; pointer-events:none; opacity:.35;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+    }
+    .hero-left { position:relative; z-index:2; }
+    .hero-eyebrow {
+      display:inline-flex; align-items:center; gap:12px;
+      font-size:.62rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold);
+      margin-bottom:28px;
+      opacity:0; animation:fadeUp .8s .2s forwards;
+    }
+    .hero-eyebrow::before { content:''; width:36px; height:1px; background:var(--gold); }
+    h1.hero-title {
+      font-family:'Playfair Display',serif;
+      font-size: clamp(2.8rem,5.5vw,5rem);
+      line-height: 1.06;
+      font-weight: 900;
+      margin-bottom: 28px;
+      opacity:0; animation:fadeUp .9s .4s forwards;
+    }
+    h1.hero-title em { font-style:italic; color:var(--gold); }
+    .hero-sub {
+      font-size:.92rem; line-height:1.85; color:var(--grey-light);
+      max-width:480px; margin-bottom:48px;
+      opacity:0; animation:fadeUp .9s .6s forwards;
+    }
+    .hero-actions {
+      display:flex; gap:18px; align-items:center;
+      opacity:0; animation:fadeUp .9s .8s forwards;
+    }
+    .btn-gold {
+      background:var(--gold); color:var(--black);
+      padding:15px 38px;
+      font-size:.68rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+      text-decoration:none; display:inline-block;
+      transition:background .3s, transform .2s;
+    }
+    .btn-gold:hover { background:var(--gold-light); transform:translateY(-2px); }
+    .btn-outline {
+      border:1px solid rgba(201,168,76,.4); color:var(--white);
+      padding:15px 32px;
+      font-size:.68rem; letter-spacing:.18em; text-transform:uppercase;
+      text-decoration:none; display:inline-block;
+      transition:border-color .3s, color .3s, transform .2s;
+    }
+    .btn-outline:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-2px); }
+
+    /* Hero right — stats card */
+    .hero-right {
+      position:relative; z-index:2;
+      opacity:0; animation:fadeLeft 1s .6s forwards;
+    }
+    .hero-card {
+      border:1px solid var(--border);
+      background: linear-gradient(135deg, rgba(201,168,76,.05), transparent);
+      padding:50px 44px;
+      position:relative;
+    }
+    .hero-card::before {
+      content:'';
+      position:absolute; top:0; left:0; right:0; height:2px;
+      background:linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+    .hero-card-title {
+      font-family:'Playfair Display',serif;
+      font-size:1rem; font-weight:700;
+      letter-spacing:.08em; margin-bottom:36px;
+      color:var(--grey-light);
+      text-transform:uppercase; font-size:.65rem; letter-spacing:.25em;
+    }
+    .kpi-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+    .kpi { border-left:2px solid var(--gold-dim); padding-left:18px; }
+    .kpi-num {
+      font-family:'Playfair Display',serif;
+      font-size:2.6rem; font-weight:900; color:var(--gold); line-height:1;
+      margin-bottom:6px;
+    }
+    .kpi-label { font-size:.64rem; letter-spacing:.16em; text-transform:uppercase; color:var(--grey); line-height:1.5; }
+    .hero-badge {
+      margin-top:36px; padding-top:28px;
+      border-top:1px solid var(--border);
+      display:flex; align-items:center; gap:14px;
+    }
+    .badge-icon { font-size:1.6rem; }
+    .badge-text { font-size:.75rem; line-height:1.6; color:var(--grey-light); }
+    .badge-text strong { color:var(--gold); font-weight:600; }
+
+    /* ── TICKER ── */
+    .ticker {
+      background: linear-gradient(to right, var(--gold-dim), var(--gold), var(--gold-dim));
+      padding:12px 0; overflow:hidden;
+    }
+    .ticker-track {
+      display:flex; gap:0; white-space:nowrap;
+      animation:ticker 28s linear infinite;
+    }
+    .ticker-item {
+      display:inline-flex; align-items:center; gap:16px;
+      font-size:.62rem; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+      color:var(--black); padding:0 40px;
+    }
+    .ticker-dot { width:5px; height:5px; background:var(--black); border-radius:50%; opacity:.5; }
+    @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+    /* ── SECTION COMMONS ── */
+    section { padding:120px 64px; }
+    .s-tag { font-size:.62rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:18px; display:flex; align-items:center; gap:12px; }
+    .s-tag::before { content:''; width:28px; height:1px; background:var(--gold); flex-shrink:0; }
+    .s-title { font-family:'Playfair Display',serif; font-size:clamp(2rem,3.5vw,3rem); font-weight:900; line-height:1.15; }
+    .s-title em { font-style:italic; color:var(--gold); }
+    .s-sub { font-size:.88rem; color:var(--grey-light); line-height:1.85; max-width:580px; margin-top:18px; }
+
+    /* ── WHY US ── */
+    .whyus { background: var(--deep); }
+    .whyus-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; margin-top:70px; }
+    .whyus-left {}
+    .argument-list { display:flex; flex-direction:column; gap:0; margin-top:48px; }
+    .argument {
+      display:flex; gap:24px; padding:28px 0;
+      border-bottom:1px solid var(--border);
+      transition:padding-left .3s;
+    }
+    .argument:first-child { border-top:1px solid var(--border); }
+    .argument:hover { padding-left:10px; }
+    .arg-num { font-family:'Playfair Display',serif; font-size:.72rem; color:var(--gold); min-width:28px; padding-top:2px; }
+    .arg-title { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; margin-bottom:7px; }
+    .arg-desc { font-size:.78rem; color:var(--grey-light); line-height:1.75; }
+
+    .whyus-right { display:flex; flex-direction:column; gap:20px; }
+    .vs-card {
+      border:1px solid var(--border); padding:30px 28px;
+      position:relative; overflow:hidden;
+      transition:border-color .3s;
+    }
+    .vs-card::after { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--gold-dim); transition:background .3s; }
+    .vs-card:hover { border-color:var(--border-h); }
+    .vs-card:hover::after { background:var(--gold); }
+    .vs-card.ours::after { background:var(--gold); }
+    .vs-label { font-size:.58rem; letter-spacing:.22em; text-transform:uppercase; margin-bottom:12px; }
+    .vs-label.them { color:var(--grey); }
+    .vs-label.us { color:var(--gold); }
+    .vs-title { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; margin-bottom:10px; }
+    .vs-desc { font-size:.78rem; color:var(--grey-light); line-height:1.7; }
+    .vs-check { color:var(--gold); margin-right:6px; }
+
+    /* ── TEAM ── */
+    .team { background:var(--black); }
+    .team-intro { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; margin-bottom:80px; }
+    .team-text {}
+    .team-quote {
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.6rem; font-style:italic; line-height:1.5;
+      color:var(--white); border-left:2px solid var(--gold);
+      padding-left:28px; margin-top:36px;
+    }
+    .team-values { display:flex; flex-direction:column; gap:16px; }
+    .team-value {
+      display:flex; align-items:flex-start; gap:16px;
+      padding:20px 24px; border:1px solid var(--border);
+      transition:border-color .3s, transform .2s;
+    }
+    .team-value:hover { border-color:var(--border-h); transform:translateX(6px); }
+    .tv-icon { font-size:1.4rem; flex-shrink:0; }
+    .tv-title { font-size:.82rem; font-weight:600; margin-bottom:4px; color:var(--white); }
+    .tv-desc { font-size:.74rem; color:var(--grey-light); line-height:1.6; }
+
+    /* Team members */
+    .team-members { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+    .member {
+      position:relative; overflow:hidden;
+      border:1px solid var(--border);
+      transition:border-color .3s;
+    }
+    .member:hover { border-color:var(--border-h); }
+    .member-avatar { display:none;
+      width:100%; padding-bottom:110%;
+      background:linear-gradient(135deg, #1a1810, #0e0d0a);
+      position:relative; overflow:hidden;
+    }
+    .member-initials {
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Playfair Display',serif;
+      font-size:2.5rem; font-weight:900;
+      color:rgba(201,168,76,.2);
+    }
+    .member-flag {
+      position:absolute; top:14px; right:14px;
+      font-size:1.2rem;
+      background:rgba(0,0,0,.6); padding:4px 8px; border-radius:2px;
+    }
+    .member-bar {
+      position:absolute; bottom:0; left:0; right:0; height:3px;
+      background:linear-gradient(to right, var(--gold-dim), var(--gold));
+      transform:scaleX(0); transform-origin:left;
+      transition:transform .4s;
+    }
+    .member:hover .member-bar { transform:scaleX(1); }
+    .member-info { padding:20px 18px; }
+    .member-name { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; margin-bottom:4px; }
+    .member-role { font-size:.62rem; letter-spacing:.15em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+    .member-exp { font-size:.72rem; color:var(--grey-light); line-height:1.5; }
+    .member-years { font-size:.6rem; color:var(--gold-dim); margin-top:6px; letter-spacing:.1em; }
+
+    /* ── EXPLOITS / RESULTS ── */
+    .results { background:linear-gradient(135deg, #090807 0%, #0d0c08 100%); position:relative; overflow:hidden; }
+    .results::before {
+      content:''; position:absolute; top:-200px; right:-200px;
+      width:700px; height:700px; border-radius:50%;
+      background:radial-gradient(circle, rgba(201,168,76,.04) 0%, transparent 70%);
+    }
+    .results-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:70px; }
+    .results-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+    .result-card {
+      background:var(--card); padding:48px 36px;
+      border:1px solid var(--border); position:relative; overflow:hidden;
+      transition:border-color .4s, transform .3s;
+    }
+    .result-card::before {
+      content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+      background:linear-gradient(to right, transparent, var(--gold), transparent);
+      transform:scaleX(0); transition:transform .4s;
+    }
+    .result-card:hover { border-color:var(--border-h); transform:translateY(-4px); }
+    .result-card:hover::before { transform:scaleX(1); }
+    .result-icon { font-size:2rem; margin-bottom:20px; }
+    .result-num {
+      font-family:'Playfair Display',serif; font-size:3.2rem; font-weight:900;
+      color:var(--gold); line-height:1; margin-bottom:8px;
+    }
+    .result-label { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; margin-bottom:10px; }
+    .result-desc { font-size:.76rem; color:var(--grey-light); line-height:1.75; }
+    .result-card.featured { background:linear-gradient(135deg, rgba(201,168,76,.08), rgba(201,168,76,.02)); border-color:rgba(201,168,76,.35); }
+
+    /* ── PROCESS ── */
+    .process { background:var(--deep); }
+    .process-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:70px; position:relative; }
+    .process-steps::before {
+      content:''; position:absolute;
+      top:52px; left:12.5%; right:12.5%; height:1px;
+      background:linear-gradient(to right, transparent, var(--gold-dim), var(--gold), var(--gold-dim), transparent);
+    }
+    .pstep { padding:0 20px 0; text-align:center; position:relative; }
+    .pstep-bubble {
+      width:52px; height:52px; border-radius:50%;
+      border:1px solid var(--gold); background:var(--black);
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Playfair Display',serif; font-size:1rem; font-weight:900; color:var(--gold);
+      margin:0 auto 28px; position:relative; z-index:2;
+      transition:background .3s;
+    }
+    .pstep:hover .pstep-bubble { background:var(--gold); color:var(--black); }
+    .pstep-title { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; margin-bottom:10px; }
+    .pstep-desc { font-size:.74rem; color:var(--grey-light); line-height:1.7; }
+
+    /* ── TESTIMONIALS ── */
+    .testi { background:var(--black); }
+    .testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:70px; }
+    .testi-card {
+      padding:40px 36px; border:1px solid var(--border); position:relative;
+      transition:border-color .3s, transform .3s;
+    }
+    .testi-card:hover { border-color:var(--border-h); transform:translateY(-4px); }
+    .testi-stars { color:var(--gold); font-size:.75rem; letter-spacing:3px; margin-bottom:20px; }
+    .testi-quote-mark {
+      font-family:'Playfair Display',serif; font-size:5rem; color:rgba(201,168,76,.12);
+      line-height:.8; margin-bottom:14px;
+    }
+    .testi-text {
+      font-family:'Cormorant Garamond',serif; font-size:1.08rem; font-style:italic;
+      line-height:1.72; color:var(--white); margin-bottom:30px;
+    }
+    .testi-sep { width:32px; height:1px; background:var(--gold-dim); margin-bottom:22px; }
+    .testi-author { display:flex; align-items:center; gap:14px; }
+    .testi-avatar {
+      width:42px; height:42px; border-radius:50%; flex-shrink:0;
+      background:linear-gradient(135deg, var(--gold-dim), var(--gold));
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Playfair Display',serif; font-size:.9rem; font-weight:900; color:var(--black);
+    }
+    .testi-name { font-size:.8rem; font-weight:600; color:var(--white); }
+    .testi-role { font-size:.66rem; color:var(--grey); letter-spacing:.08em; margin-top:2px; }
+    .testi-result { font-size:.66rem; color:var(--gold); font-weight:600; margin-top:3px; }
+
+    /* ── FAQ ── */
+    .faq { background:var(--deep); }
+    .faq-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; margin-top:70px; align-items:start; }
+    .faq-list { display:flex; flex-direction:column; gap:0; }
+    .faq-item { border-bottom:1px solid var(--border); }
+    .faq-q {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:22px 0; cursor:auto;
+      font-size:.85rem; font-weight:500; color:var(--white);
+      transition:color .3s;
+    }
+    .faq-q:hover { color:var(--gold); }
+    .faq-icon { color:var(--gold); font-size:1.2rem; transition:transform .3s; flex-shrink:0; margin-left:16px; }
+    .faq-a {
+      max-height:0; overflow:hidden; transition:max-height .4s ease, padding .3s ease;
+      font-size:.78rem; color:var(--grey-light); line-height:1.8;
+      transition:max-height .4s, padding .3s;
+    }
+    .faq-item.open .faq-a { max-height:200px; padding-bottom:20px; }
+    .faq-item.open .faq-icon { transform:rotate(45deg); }
+    .faq-cta {
+      background:linear-gradient(135deg, rgba(201,168,76,.08), rgba(201,168,76,.02));
+      border:1px solid var(--border); padding:48px 40px;
+    }
+    .faq-cta-title { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:900; margin-bottom:16px; line-height:1.2; }
+    .faq-cta-title em { font-style:italic; color:var(--gold); }
+    .faq-cta-desc { font-size:.8rem; color:var(--grey-light); line-height:1.8; margin-bottom:32px; }
+    .faq-cta-points { display:flex; flex-direction:column; gap:10px; margin-bottom:32px; }
+    .faq-cta-point { display:flex; align-items:center; gap:10px; font-size:.76rem; color:var(--white); }
+    .faq-cta-point::before { content:'✓'; color:var(--gold); font-weight:700; }
+
+    /* ── CONTACT ── */
+    .contact { background:var(--black); position:relative; overflow:hidden; }
+    .contact::after {
+      content:''; position:absolute; bottom:-300px; left:50%;
+      transform:translateX(-50%);
+      width:800px; height:600px; border-radius:50%;
+      background:radial-gradient(ellipse, rgba(201,168,76,.04) 0%, transparent 70%);
+    }
+    .contact-grid { display:grid; grid-template-columns:1fr 1.2fr; gap:80px; margin-top:70px; position:relative; z-index:2; }
+    .contact-info {}
+    .contact-sub { font-size:.88rem; color:var(--grey-light); line-height:1.85; margin-bottom:40px; }
+    .contact-perks { display:flex; flex-direction:column; gap:16px; margin-bottom:48px; }
+    .contact-perk { display:flex; align-items:center; gap:14px; font-size:.78rem; color:var(--white); }
+    .perk-dot { width:6px; height:6px; background:var(--gold); border-radius:50%; flex-shrink:0; }
+    .contact-channels { display:flex; flex-direction:column; gap:16px; }
+    .channel { display:flex; align-items:center; gap:16px; padding:16px 20px; border:1px solid var(--border); transition:border-color .3s; }
+    .channel:hover { border-color:var(--border-h); }
+    .channel-icon { font-size:1.2rem; color:var(--gold); width:28px; text-align:center; flex-shrink:0; }
+    .channel-label { font-size:.6rem; letter-spacing:.15em; text-transform:uppercase; color:var(--grey); }
+    .channel-val { font-size:.85rem; color:var(--white); margin-top:2px; }
+
+    /* Form */
+    .contact-form { display:flex; flex-direction:column; gap:18px; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .fg { display:flex; flex-direction:column; gap:7px; }
+    .fl { font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
+    .fi, .ft {
+      background:transparent; border:1px solid var(--border);
+      color:var(--white); padding:13px 16px;
+      font-family:'Montserrat',sans-serif; font-size:.8rem;
+      outline:none; transition:border-color .3s;
+      resize:none;
+    }
+    .fi:focus, .ft:focus { border-color:var(--gold); }
+    .fi::placeholder, .ft::placeholder { color:rgba(122,112,96,.45); }
+    .ft { height:110px; }
+    .select-wrap { position:relative; }
+    .fi.select { appearance:none; cursor:auto; }
+    .select-arrow { position:absolute; right:14px; top:50%; transform:translateY(-50%); color:var(--gold); pointer-events:none; font-size:.7rem; }
+    .form-submit {
+      background:var(--gold); color:var(--black);
+      border:none; padding:17px 44px;
+      font-family:'Montserrat',sans-serif; font-size:.68rem; font-weight:700;
+      letter-spacing:.2em; text-transform:uppercase;
+      cursor:auto; transition:background .3s, transform .2s; align-self:flex-start;
+    }
+    .form-submit:hover { background:var(--gold-light); transform:translateY(-2px); }
+    .form-note { font-size:.65rem; color:var(--grey); line-height:1.6; }
+
+    /* ── FOOTER ── */
+    footer {
+      background:var(--deep);
+      border-top:1px solid var(--border);
+      padding:60px 64px 36px;
+    }
+    .footer-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:60px; margin-bottom:48px; }
+    .footer-brand-desc { font-size:.76rem; color:var(--grey); line-height:1.8; margin-top:20px; max-width:260px; }
+    .footer-col-title { font-size:.62rem; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); margin-bottom:20px; }
+    .footer-links { display:flex; flex-direction:column; gap:10px; }
+    .footer-links a { text-decoration:none; color:var(--grey); font-size:.75rem; transition:color .3s; }
+    .footer-links a:hover { color:var(--gold); }
+    .footer-bottom { display:flex; justify-content:space-between; align-items:center; padding-top:28px; border-top:1px solid var(--border); }
+    .footer-copy { font-size:.65rem; color:var(--grey); letter-spacing:.08em; }
+    .footer-legal { display:flex; gap:24px; }
+    .footer-legal a { font-size:.65rem; color:var(--grey); text-decoration:none; transition:color .3s; }
+    .footer-legal a:hover { color:var(--gold); }
+
+    /* ── WHATSAPP BUTTON ── */
+    .wa-btn {
+      position:fixed; bottom:36px; right:36px;
+      width:58px; height:58px;
+      background:#25d366;
+      border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.6rem;
+      z-index:300;
+      text-decoration:none;
+      box-shadow:0 4px 20px rgba(37,211,102,.4);
+      transition:transform .3s, box-shadow .3s;
+    }
+    .wa-btn:hover { transform:scale(1.12); box-shadow:0 6px 30px rgba(37,211,102,.55); }
+    .wa-pulse {
+      position:absolute; inset:-4px;
+      border-radius:50%; border:2px solid rgba(37,211,102,.4);
+      animation:pulse 2.2s ease-out infinite;
+    }
+    @keyframes pulse { 0%{transform:scale(1);opacity:1} 100%{transform:scale(1.5);opacity:0} }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeLeft { from{opacity:0;transform:translateX(28px)} to{opacity:1;transform:translateX(0)} }
+    .reveal { opacity:0; transform:translateY(36px); transition:opacity .8s, transform .8s; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .rd1{transition-delay:.1s} .rd2{transition-delay:.2s} .rd3{transition-delay:.3s} .rd4{transition-delay:.4s}
+
+    /* ── DIVIDER ── */
+    .gold-divider { display:flex; align-items:center; gap:20px; padding:0 64px; opacity:.35; }
+    .gold-divider-line { flex:1; height:1px; background:var(--border); }
+    .gold-divider-txt { font-size:.6rem; letter-spacing:.3em; color:var(--gold); white-space:nowrap; }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px) {
+      nav { padding:20px 28px; }
+      .nav-links { display:none; }
+      section { padding:80px 28px; }
+      .gold-divider { padding:0 28px; }
+      .hero { grid-template-columns:1fr; padding:120px 28px 60px; gap:48px; }
+      .hero-right { display:none; }
+      .whyus-grid { grid-template-columns:1fr; gap:48px; }
+      .team-intro { grid-template-columns:1fr; gap:40px; }
+      .team-members { grid-template-columns:1fr 1fr; }
+      .results-grid { grid-template-columns:1fr 1fr; }
+      .process-steps { grid-template-columns:1fr 1fr; gap:40px; }
+      .process-steps::before { display:none; }
+      .testi-grid { grid-template-columns:1fr; }
+      .faq-grid { grid-template-columns:1fr; gap:48px; }
+      .contact-grid { grid-template-columns:1fr; gap:48px; }
+      .footer-top { grid-template-columns:1fr 1fr; gap:40px; }
+      .footer-bottom { flex-direction:column; gap:16px; text-align:center; }
+    }
+  </style>
+
+<style>
+/* ROBUSTNESS FALLBACK */
+.hero-eyebrow, h1.hero-title, .hero-sub, .hero-actions, .hero-right {
+  animation-fill-mode: both !important;
+}
+</style>
+<script>
+// Force all animated/reveal elements visible after 500ms (fallback)
+document.addEventListener('DOMContentLoaded', function() {
+  // Immediately trigger reveals for visible elements
+  function revealAll() {
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      el.classList.add('visible');
+    });
+  }
+  // IntersectionObserver for scroll reveals
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+    // Fallback: force all visible after 1.5s
+    setTimeout(revealAll, 1500);
+  } else {
+    revealAll();
+  }
+});
+</script>
+
+<style>
+/* MOBILE FIXES */
+@media (max-width: 768px) {
+  nav { padding: 14px 16px !important; }
+  nav .nav-links { display: none !important; }
+  .hero { 
+    grid-template-columns: 1fr !important; 
+    padding: 100px 20px 60px !important;
+    gap: 40px !important;
+  }
+  .hero-right { display: none !important; }
+  h1.hero-title { font-size: 2.2rem !important; }
+  .hero-sub { font-size: 0.9rem !important; }
+  .hero-actions { flex-direction: column !important; gap: 12px !important; }
+  .btn-gold, .btn-outline { width: 100% !important; text-align: center !important; padding: 16px !important; }
+  .whyus-grid { grid-template-columns: 1fr !important; }
+  .team-grid { grid-template-columns: 1fr !important; }
+  .results-grid { grid-template-columns: 1fr 1fr !important; }
+  .testi-grid { grid-template-columns: 1fr !important; }
+  .form-grid { grid-template-columns: 1fr !important; }
+  section { padding: 60px 20px !important; }
+  .footer-inner { flex-direction: column !important; text-align: center !important; gap: 24px !important; }
+  .section-title { font-size: 1.8rem !important; }
+}
+@media (max-width: 480px) {
+  h1.hero-title { font-size: 1.9rem !important; }
+  .results-grid { grid-template-columns: 1fr !important; }
+  .result-num { font-size: 2.5rem !important; }
+}
+</style>
+
+<style>
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  background: none;
+  border: none;
+}
+.nav-hamburger span {
+  width: 24px; height: 2px;
+  background: #c9a84c;
+  display: block;
+  transition: all .3s;
+}
+.nav-mobile-menu {
+  display: none;
+  position: fixed;
+  top: 70px; left: 0; right: 0;
+  background: rgba(6,6,6,.98);
+  padding: 24px;
+  z-index: 999;
+  border-bottom: 1px solid rgba(201,168,76,.2);
+  flex-direction: column;
+  gap: 20px;
+}
+.nav-mobile-menu a {
+  color: #a09080;
+  text-decoration: none;
+  font-size: .85rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(201,168,76,.08);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+}
+.nav-mobile-menu a:hover { color: #c9a84c; }
+.nav-mobile-menu.open { display: flex; }
+@media (max-width: 768px) {
+  .nav-hamburger { display: flex !important; }
+}
+</style>
+
+  <!-- ═══════════════════════════════════════════
+       SCHEMA.ORG — RÉFÉRENCEMENT IA & GOOGLE
+       ═══════════════════════════════════════════ -->
+
+  <!-- 1. LocalBusiness + Service Principal -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["LocalBusiness", "ProfessionalService"],
+    "name": "GoAutoCall",
+    "alternateName": "Go Auto Call",
+    "description": "GoAutoCall est le spécialiste de la téléprospection automobile BtoC en France. Équipes 100% françaises expertes qui génèrent des rendez-vous qualifiés pour les concessions automobiles : VN, VO, financement, reprise, premium et utilitaires. Plus de 3000 RDV qualifiés par mois pour 120+ concessions partenaires.",
+    "url": "https://goautocall.netlify.app",
+    "logo": "https://goautocall.netlify.app/logo.png",
+    "image": "https://goautocall.netlify.app/logo.png",
+    "telephone": "+33757805076",
+    "email": "contact@goautocall.fr",
+    "foundingDate": "2009",
+    "numberOfEmployees": {
+      "@type": "QuantitativeValue",
+      "value": "50"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "France"
+    },
+    "serviceArea": {
+      "@type": "Country",
+      "name": "France"
+    },
+    "knowsLanguage": "fr",
+    "priceRange": "€€",
+    "currenciesAccepted": "EUR",
+    "openingHours": "Mo-Fr 08:00-20:00",
+    "sameAs": [
+      "https://www.linkedin.com/company/goautocall"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Services de téléprospection automobile",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Téléprospection VN - Véhicules Neufs",
+            "description": "Génération de rendez-vous qualifiés pour la vente de véhicules neufs en concession automobile"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Téléprospection VO - Véhicules Occasion",
+            "description": "Campagnes d'appels sortants pour générer des leads et RDV véhicules d'occasion"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Téléprospection Financement Automobile",
+            "description": "Prise de rendez-vous qualifiés pour les offres de financement et crédit automobile"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Téléprospection Reprise Véhicule",
+            "description": "Génération de leads pour les reprises et échanges de véhicules en concession"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Téléprospection Automobile Premium et Luxe",
+            "description": "Service de téléprospection haut de gamme pour les marques automobiles premium et de luxe"
+          }
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- 2. FAQ Schema — Questions fréquentes référencées par les IA -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Qu'est-ce que GoAutoCall ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GoAutoCall est une entreprise spécialisée dans la téléprospection automobile BtoC depuis 2009. Nous générons des rendez-vous qualifiés pour les concessions automobiles françaises grâce à des équipes 100% françaises expatriées, expertes du secteur automobile. Nous couvrons les VN, VO, financement, reprise, et véhicules premium."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Comment GoAutoCall génère-t-il des rendez-vous pour les concessions automobiles ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GoAutoCall utilise des équipes de téléprospecteurs français spécialisés dans l'automobile qui contactent des prospects qualifiés par téléphone. Nos agents maîtrisent les techniques de vente BtoC, connaissent parfaitement le secteur automobile et utilisent des fichiers prospects segmentés et qualifiés. Notre processus de double confirmation garantit un taux de show de 78% en moyenne."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quel est le taux de rendez-vous honorés chez GoAutoCall ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GoAutoCall affiche un taux de show moyen de 78%, soit le double de la moyenne du secteur. Ce résultat est obtenu grâce à notre processus de double confirmation des rendez-vous et au suivi personnalisé de chaque prospect jusqu'au jour du rendez-vous en concession."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Combien de rendez-vous GoAutoCall génère-t-il par mois ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GoAutoCall génère plus de 3000 rendez-vous qualifiés par mois pour l'ensemble de ses concessions partenaires. Chaque rendez-vous est confirmé, qualifié selon les critères exacts du client, et transmis avec une fiche prospect complète."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quelle est l'expérience de GoAutoCall dans le secteur automobile ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GoAutoCall a été fondé en 2009 et compte 15 ans d'expertise exclusive dans la téléprospection automobile. Nous travaillons avec plus de 120 concessions et groupes automobiles partenaires en France, couvrant toutes les marques et tous les types de véhicules."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "GoAutoCall travaille-t-il avec des concessions de toutes tailles ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oui, GoAutoCall accompagne des concessions de toutes tailles, du garage indépendant au groupe multimarques. Nous adaptons nos campagnes de téléprospection aux objectifs spécifiques de chaque client, que ce soit en VN, VO, financement, reprise ou véhicules utilitaires."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quel est le ROI avec GoAutoCall ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nos clients constatent en moyenne un ROI de 3x le montant investi dans les 90 premiers jours. GoAutoCall est opérationnel en 48h et génère les premiers résultats dès J+7 après le brief initial."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Comment démarrer avec GoAutoCall ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pour démarrer avec GoAutoCall, contactez-nous pour un audit gratuit de votre potentiel commercial. Après le brief initial, nous sommes opérationnels en 48h. Les premiers rendez-vous qualifiés sont transmis dès J+7. Appelez-nous au +33 7 57 80 50 76 ou écrivez à contact@goautocall.fr."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- 3. Organization Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "GoAutoCall",
+    "url": "https://goautocall.netlify.app",
+    "logo": "https://goautocall.netlify.app/logo.png",
+    "description": "Spécialiste de la téléprospection automobile BtoC depuis 2009. Plus de 3000 RDV qualifiés par mois pour 120+ concessions partenaires en France.",
+    "foundingDate": "2009",
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+33757805076",
+        "contactType": "sales",
+        "availableLanguage": "French",
+        "areaServed": "FR"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+33757805076",
+        "contactType": "customer service",
+        "availableLanguage": "French",
+        "areaServed": "FR"
+      }
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "120",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Marc Lefebvre"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "reviewBody": "GoAutoCall a transformé notre développement commercial. +68% de rendez-vous qualifiés dès le premier mois. Une équipe professionnelle qui connaît parfaitement le secteur automobile."
+      },
+      {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Thomas Perrier"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "reviewBody": "Résultat exceptionnel : +42 ventes supplémentaires au premier trimestre grâce aux leads GoAutoCall. Le taux de show est remarquable comparé à nos anciens prestataires."
+      },
+      {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Sophie Bernard"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "reviewBody": "71 rendez-vous honorés le premier mois. GoAutoCall est le meilleur partenaire que nous ayons eu pour la téléprospection automobile. Équipe réactive et résultats au rendez-vous."
+      }
+    ]
+  }
+  </script>
+
+  <!-- 4. WebSite Schema pour la recherche -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "GoAutoCall",
+    "url": "https://goautocall.netlify.app",
+    "description": "GoAutoCall — Téléprospection automobile BtoC spécialisée. Génération de rendez-vous qualifiés pour concessions automobiles françaises depuis 2009.",
+    "inLanguage": "fr-FR",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://goautocall.netlify.app/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- 5. BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "GoAutoCall",
+        "item": "https://goautocall.netlify.app"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Recrutement",
+        "item": "https://goautocall.netlify.app/recrutement.html"
+      }
+    ]
+  }
+  </script>
+
+  <!-- META OG & TWITTER pour partage réseaux sociaux -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://goautocall.netlify.app">
+  <meta property="og:title" content="GoAutoCall — Téléprospection Automobile BtoC | +3000 RDV/mois">
+  <meta property="og:description" content="Spécialiste de la téléprospection automobile depuis 2009. Équipes françaises expertes. 78% taux de show. 120+ concessions partenaires. Premiers résultats dès J+7.">
+  <meta property="og:image" content="https://goautocall.netlify.app/logo.png">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="GoAutoCall">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GoAutoCall — Téléprospection Automobile BtoC">
+  <meta name="twitter:description" content="+3000 RDV qualifiés/mois pour concessions automobiles. Équipes françaises expertes. 78% taux de show.">
+  <meta name="twitter:image" content="https://goautocall.netlify.app/logo.png">
+
+  <!-- META SUPPLÉMENTAIRES SEO -->
+  <meta name="keywords" content="téléprospection automobile, rendez-vous qualifiés concession, lead generation automobile, télémarketing automobile, prospection téléphonique BtoC, prise de rendez-vous automobile, concession automobile leads, téléprospection VN VO, GoAutoCall">
+  <meta name="author" content="GoAutoCall">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta name="language" content="French">
+  <link rel="canonical" href="https://goautocall.netlify.app">
+
+<script>
+function toggleFaq(el) {
+  var item = el.parentElement;
+  var answer = item.querySelector('.faq-a');
+  var icon = el.querySelector('.faq-icon');
+  var isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(i) {
+    i.classList.remove('open');
+    var a = i.querySelector('.faq-a');
+    if(a) { a.style.maxHeight = '0px'; a.style.paddingBottom = '0'; }
+    var ic = i.querySelector('.faq-icon');
+    if(ic) ic.style.transform = 'rotate(0deg)';
+  });
+  if(!isOpen && answer) {
+    item.classList.add('open');
+    answer.style.maxHeight = answer.scrollHeight + 50 + 'px';
+    answer.style.paddingBottom = '20px';
+    if(icon) icon.style.transform = 'rotate(45deg)';
+  }
+}
+</script>
+</head>
+<body>
+
+<!-- Cursor -->
+<!-- WhatsApp -->
+<a href="https://wa.me/33XXXXXXXXX" class="wa-btn" target="_blank" title="Contactez-nous sur WhatsApp">
+  <div class="wa-pulse"></div>
+  💬
+</a>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="#" style="display:inline-flex;align-items:center;text-decoration:none;"><img src="logo.png" alt="GoAutoCall Logo" style="height:52px;width:auto;display:block;"></a>
+  <ul class="nav-links">
+    <li><a href="#pourquoi">Pourquoi nous</a></li>
+    <li><a href="#equipe">Notre équipe</a></li>
+    <li><a href="#resultats">Résultats</a></li>
+    <li><a href="#temoignages">Avis clients</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="recrutement.html" style="color:var(--gold-light)!important">Rejoindre l'équipe</a></li><li><a href="#contact" class="nav-cta">Audit gratuit</a></li>
+  </ul>
+<button class="nav-hamburger" onclick="document.querySelector('.nav-mobile-menu').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile-menu">
+  <a href="#pourquoi" onclick="this.closest('.nav-mobile-menu').classList.remove('open')">Pourquoi nous</a>
+  <a href="#equipe" onclick="this.closest('.nav-mobile-menu').classList.remove('open')">Notre équipe</a>
+  <a href="#resultats" onclick="this.closest('.nav-mobile-menu').classList.remove('open')">Résultats</a>
+  <a href="#temoignages" onclick="this.closest('.nav-mobile-menu').classList.remove('open')">Avis clients</a>
+  <a href="#faq" onclick="this.closest('.nav-mobile-menu').classList.remove('open')">FAQ</a>
+  <a href="recrutement.html" style="color:#e2c87a">Rejoindre l'équipe</a>
+  <a href="#contact" onclick="this.closest('.nav-mobile-menu').classList.remove('open')" style="color:#c9a84c;font-weight:700">Audit gratuit</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" style="padding-top:140px;padding-bottom:80px;">
+  <div class="hero-grain"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">15 ans d'expertise automobile</div>
+    <h1 class="hero-title">
+      Des milliers de<br>
+      rendez-vous <em>qualifiés</em><br>
+      chaque mois
+    </h1>
+    <p class="hero-sub">
+      GoAutoCall, c'est l'équipe de téléprospection que vos concurrents auraient voulu avoir. Des vendeurs français, passionnés d'automobile, qui représentent votre image de marque avec excellence.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-gold">Obtenir un audit gratuit</a>
+      <a href="#resultats" class="btn-outline">Voir nos résultats</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="hero-card-title">✦ &nbsp; Nos performances en chiffres</div>
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="kpi-num" data-target="15">0</div>
+          <div class="kpi-label">Ans d'expertise<br>téléprospection</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-num" data-target="1000" data-suffix="+">0</div>
+          <div class="kpi-label">RDV qualifiés<br>générés chaque mois</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-num" data-target="70" data-suffix="%">0</div>
+          <div class="kpi-label">Taux de satisfaction<br>client moyen</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-num" data-target="35" data-suffix="+">0</div>
+          <div class="kpi-label">Concessions partenaires<br>à travers la France</div>
+        </div>
+      </div>
+      <div class="hero-badge">
+        <div class="badge-icon">🇫🇷</div>
+        <div class="badge-text"><strong>Équipes 100% françaises expatriées</strong> — Culture automobile, maîtrise des codes et des marques premium du marché.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">+2 000 RDV qualifiés / mois <span class="ticker-dot"></span></span>
+    <span class="ticker-item">15 ans d'expertise automobile <span class="ticker-dot"></span></span>
+    <span class="ticker-item">Équipes françaises expertes <span class="ticker-dot"></span></span>
+    <span class="ticker-item">+50 concessions partenaires <span class="ticker-dot"></span></span>
+    <span class="ticker-item">Taux de show 78% en moyenne <span class="ticker-dot"></span></span>
+    <span class="ticker-item">VN · VO · Financement · Reprise <span class="ticker-dot"></span></span>
+    <span class="ticker-item">+2 000 RDV qualifiés / mois <span class="ticker-dot"></span></span>
+    <span class="ticker-item">15 ans d'expertise automobile <span class="ticker-dot"></span></span>
+    <span class="ticker-item">Équipes françaises expertes <span class="ticker-dot"></span></span>
+    <span class="ticker-item">+50 concessions partenaires <span class="ticker-dot"></span></span>
+    <span class="ticker-item">Taux de show 78% en moyenne <span class="ticker-dot"></span></span>
+    <span class="ticker-item">VN · VO · Financement · Reprise <span class="ticker-dot"></span></span>
+  </div>
+</div>
+
+<!-- ═══ POURQUOI NOUS ═══ -->
+<section class="whyus" id="pourquoi">
+  <div class="whyus-grid">
+    <div class="whyus-left reveal">
+      <div class="s-tag">Pourquoi GoAutoCall</div>
+      <h2 class="s-title">Ce que nos<br>concurrents ne<br>peuvent pas <em>offrir</em></h2>
+      <p class="s-sub">En 15 ans, nous avons appris ce qui fait vraiment la différence entre un call center généraliste… et une équipe qui vend des voitures.</p>
+      <div class="argument-list">
+        <div class="argument">
+          <div class="arg-num">01</div>
+          <div>
+            <div class="arg-title">Des vendeurs, pas des opérateurs</div>
+            <div class="arg-desc">Nos agents sont de vrais professionnels de la vente automobile. Ils connaissent les modèles, les finitions, les offres de financement. Ils parlent votre langue — et celle de vos clients.</div>
+          </div>
+        </div>
+        <div class="argument">
+          <div class="arg-num">02</div>
+          <div>
+            <div class="arg-title">L'ADN français, la puissance offshore</div>
+            <div class="arg-desc">Nos équipes sont françaises, expatriées et 100% dédiées au marché automobile français. Qualité d'expression, culture client premium, réactivité.</div>
+          </div>
+        </div>
+        <div class="argument">
+          <div class="arg-num">03</div>
+          <div>
+            <div class="arg-title">Votre image de marque, notre priorité</div>
+            <div class="arg-desc">Chaque appel est préparé selon votre charte, votre discours, votre univers. Le client ne sait pas qu'il parle à un prestataire — il parle à vous.</div>
+          </div>
+        </div>
+        <div class="argument">
+          <div class="arg-num">04</div>
+          <div>
+            <div class="arg-title">Résultats mesurables dès J+7</div>
+            <div class="arg-desc">Premier bilan en une semaine. Ajustements en temps réel. Reporting transparent sur chaque KPI.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="whyus-right reveal rd2">
+      <div class="vs-card" style="margin-bottom:8px; opacity:.6;">
+        <div class="vs-label them">❌ &nbsp; Les autres call centers</div>
+        <div class="vs-title">Des opérateurs qui lisent un script</div>
+        <div class="vs-desc">Scripts génériques, agents sans connaissance automobile, turn-over élevé, image de marque dégradée, leads non qualifiés transmis en masse.</div>
+      </div>
+      <div class="vs-card ours" style="border-color:rgba(201,168,76,.5);">
+        <div class="vs-label us">✦ &nbsp; GoAutoCall</div>
+        <div class="vs-title">Des vendeurs qui représentent votre marque</div>
+        <div class="vs-desc">
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
+            <div><span class="vs-check">✓</span> Agents spécialisés secteur automobile</div>
+            <div><span class="vs-check">✓</span> Formation continue sur vos offres</div>
+            <div><span class="vs-check">✓</span> Discours sur-mesure à votre image</div>
+            <div><span class="vs-check">✓</span> RDV qualifiés avec fiche prospect complète</div>
+            <div><span class="vs-check">✓</span> Reporting quotidien + accès CRM</div>
+            <div><span class="vs-check">✓</span> Taux de show moyen de 78%</div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:24px 28px; border:1px solid var(--border); border-top:none; background:rgba(201,168,76,.03); font-size:.74rem; color:var(--grey-light); line-height:1.7;">
+        💡 <strong style="color:var(--white);">Le saviez-vous ?</strong> Un RDV montré vaut en moyenne 3 à 5× plus qu'un lead brut. Nous livrons des rendez-vous honorés, pas des numéros de téléphone.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"><div class="gold-divider-line"></div><div class="gold-divider-txt">✦ &nbsp; GOAUTOCALL &nbsp; ✦</div><div class="gold-divider-line"></div></div>
+
+<!-- ═══ ÉQUIPE ═══ -->
+<section class="team" id="equipe">
+  <div class="team-intro">
+    <div class="team-text reveal">
+      <div class="s-tag">Notre équipe</div>
+      <h2 class="s-title">Des <em>Français</em> qui<br>parlent automobile</h2>
+      <p class="s-sub">Ce n'est pas une équipe de centre d'appels. Ce sont des passionnés d'automobile, sélectionnés pour leur fibre commerciale, formés à votre univers de marque.</p>
+      <div class="team-quote">
+        "Chaque appel que nous passons est une extension de votre showroom. Nous ne vendons pas des rendez-vous — nous créons des premières impressions inoubliables."
+      </div>
+    </div>
+    <div class="team-values reveal rd2">
+      <div class="team-value">
+        <div class="tv-icon">🎯</div>
+        <div><div class="tv-title">Sélection rigoureuse</div><div class="tv-desc">Chaque agent passe par 3 rounds d'entretien et une simulation d'appel réel. Seuls les meilleurs intègrent nos équipes.</div></div>
+      </div>
+      <div class="team-value">
+        <div class="tv-icon">📚</div>
+        <div><div class="tv-title">Formation continue</div><div class="tv-desc">Mises à jour régulières sur les nouvelles gammes, les offres saisonnières et les techniques de vente automobile.</div></div>
+      </div>
+      <div class="team-value">
+        <div class="tv-icon">🇫🇷</div>
+        <div><div class="tv-title">Français natifs expatriés</div><div class="tv-desc">Maîtrise parfaite de la langue, des codes culturels et des attentes du client automobile français premium.</div></div>
+      </div>
+      <div class="team-value">
+        <div class="tv-icon">🏆</div>
+        <div><div class="tv-title">Culture de la performance</div><div class="tv-desc">Incentives, challenges mensuels et suivi individuel. Nos agents sont motivés à dépasser vos objectifs.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team cards -->
+  <div class="team-members">
+    <div class="member reveal">
+      
+      <div class="member-info">
+        <div class="member-name">Alexandre M.</div>
+        <div class="member-role">Team Leader — Prospection VN</div>
+        <div class="member-exp">Ancien commercial en concession BMW. Expert financement et reprise véhicule.</div>
+        <div class="member-years">★ 8 ans d'expérience automobile</div>
+      </div>
+    </div>
+    <div class="member reveal rd1">
+      
+      <div class="member-info">
+        <div class="member-name">Sophie L.</div>
+        <div class="member-role">Senior Agent — VO & Reprise</div>
+        <div class="member-exp">Spécialisée VO et clientèle premium. Expertise Porsche, Mercedes, Audi.</div>
+        <div class="member-years">★ 6 ans d'expérience automobile</div>
+      </div>
+    </div>
+    <div class="member reveal rd2">
+      
+      <div class="member-info">
+        <div class="member-name">Kevin B.</div>
+        <div class="member-role">Agent — Campagnes Sortantes</div>
+        <div class="member-exp">Maîtrise des techniques de cold calling et qualification prospect multi-marques.</div>
+        <div class="member-years">★ 5 ans d'expérience automobile</div>
+      </div>
+    </div>
+    <div class="member reveal rd3">
+      
+      <div class="member-info">
+        <div class="member-name">Marine L.</div>
+        <div class="member-role">Agent — Relance & Fidélisation</div>
+        <div class="member-exp">Spécialiste relance prospects froids. Taux de conversion personnelle de 34%.</div>
+        <div class="member-years">★ 4 ans d'expérience automobile</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RÉSULTATS ═══ -->
+<section class="results" id="resultats">
+  <div class="results-header reveal">
+    <div>
+      <div class="s-tag">Nos exploits</div>
+      <h2 class="s-title">Des chiffres qui<br>parlent <em>d'eux-mêmes</em></h2>
+    </div>
+    <p style="font-size:.85rem;color:var(--grey-light);max-width:340px;line-height:1.8;text-align:right;">15 ans de résultats concrets pour des concessions de toutes tailles — du garage indépendant au groupe multimarques.</p>
+  </div>
+  <div class="results-grid">
+    <div class="result-card featured reveal">
+      <div class="result-icon">📞</div>
+      <div class="result-num counter" data-target="2000" data-suffix="+">0+</div>
+      <div class="result-label">RDV qualifiés par mois</div>
+      <div class="result-desc">Rendez-vous pris, confirmés et transmis avec fiche prospect complète. Qualifiés selon vos critères exacts.</div>
+    </div>
+    <div class="result-card reveal rd1">
+      <div class="result-icon">📈</div>
+      <div class="result-num counter" data-target="78" data-suffix="%">0%</div>
+      <div class="result-label">Taux de show moyen</div>
+      <div class="result-desc">78% de nos rendez-vous sont effectivement honorés en concession — grâce à notre processus de confirmation en 2 étapes.</div>
+    </div>
+    <div class="result-card reveal rd2">
+      <div class="result-icon">🚗</div>
+      <div class="result-num counter" data-target="50" data-suffix="+">0+</div>
+      <div class="result-label">Concessions partenaires</div>
+      <div class="result-desc">Plus de 50 concessions et groupes automobiles nous font confiance pour leur développement commercial.</div>
+    </div>
+    <div class="result-card reveal rd1">
+      <div class="result-icon">⏱️</div>
+      <div class="result-num">J+7</div>
+      <div class="result-label">Premiers résultats</div>
+      <div class="result-desc">Onboarding en 48h. Campagne lancée dans la semaine. Premiers RDV transmis dès J+7 après le brief initial.</div>
+    </div>
+    <div class="result-card reveal rd2">
+      <div class="result-icon">🏆</div>
+      <div class="result-num counter" data-target="15">0</div>
+      <div class="result-label">Ans d'expérience</div>
+      <div class="result-desc">Fondée en 2009, GoAutoCall est l'un des pionniers de la téléprospection automobile spécialisée en France.</div>
+    </div>
+    <div class="result-card featured reveal rd3">
+      <div class="result-icon">💰</div>
+      <div class="result-num">×3</div>
+      <div class="result-label">ROI moyen constaté</div>
+      <div class="result-desc">Nos clients génèrent en moyenne 3× le montant investi en nouvelles ventes dans les 90 premiers jours.</div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider" style="margin:0;"><div class="gold-divider-line"></div><div class="gold-divider-txt">✦ &nbsp; TÉMOIGNAGES &nbsp; ✦</div><div class="gold-divider-line"></div></div>
+
+<!-- ═══ TEMOIGNAGES ═══ -->
+<section class="testi" id="temoignages">
+  <div class="reveal">
+    <div class="s-tag">Ce que disent nos clients</div>
+    <h2 class="s-title">Ils nous ont fait <em>confiance</em><br>— et ils continuent</h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote-mark">"</div>
+      <div class="testi-text">GoAutoCall a complètement transformé notre activité VO. En 3 mois, nous avons doublé notre flux de prospects qualifiés. Les agents connaissent nos modèles mieux que certains de nos vendeurs !</div>
+      <div class="testi-sep"></div>
+      <div class="testi-author">
+        <div class="testi-avatar">ML</div>
+        <div>
+          <div class="testi-name">Marc Lefebvre</div>
+          <div class="testi-role">Directeur Commercial — Groupe Auto Prestige Paris</div>
+          <div class="testi-result">+68% de RDV en 3 mois</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal rd1">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote-mark">"</div>
+      <div class="testi-text">Ce qui m'a convaincu, c'est que les clients ne réalisent pas qu'ils parlent à un prestataire. L'expérience est fluide, naturelle, professionnelle. Notre image de marque Mercedes est parfaitement respectée.</div>
+      <div class="testi-sep"></div>
+      <div class="testi-author">
+        <div class="testi-avatar">TP</div>
+        <div>
+          <div class="testi-name">Thomas Perrier</div>
+          <div class="testi-role">CEO — Étoile Automobiles, concessionnaire Mercedes</div>
+          <div class="testi-result">+42 ventes supplémentaires / trimestre</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal rd2">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote-mark">"</div>
+      <div class="testi-text">J'étais sceptique. Un ami m'a recommandé GoAutoCall. Résultat : 94 rendez-vous pris le premier mois, 71 honorés. Mon équipe de vente n'avait jamais eu autant de matière. Je ne reviens pas en arrière.</div>
+      <div class="testi-sep"></div>
+      <div class="testi-author">
+        <div class="testi-avatar">SB</div>
+        <div>
+          <div class="testi-name">Sophie Bernard</div>
+          <div class="testi-role">Gérante — Bernard Auto Lyon, multimarques</div>
+          <div class="testi-result">71 RDV honorés dès le 1er mois</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROCESS ═══ -->
+<section class="process" style="background:var(--deep);" id="process">
+  <div class="reveal">
+    <div class="s-tag">Comment ça marche</div>
+    <h2 class="s-title">Opérationnel en<br><em>moins de 48h</em></h2>
+  </div>
+  <div class="process-steps">
+    <div class="pstep reveal">
+      <div class="pstep-bubble">01</div>
+      <div class="pstep-title">Brief & Stratégie</div>
+      <div class="pstep-desc">Appel de découverte gratuit. Analyse de votre cible, vos offres, vos objectifs. Définition du discours et du script sur-mesure.</div>
+    </div>
+    <div class="pstep reveal rd1">
+      <div class="pstep-bubble">02</div>
+      <div class="pstep-title">Onboarding Express</div>
+      <div class="pstep-desc">Formation de l'équipe dédiée à vos produits et à votre culture de marque. Intégration CRM. Validation du script en 48h.</div>
+    </div>
+    <div class="pstep reveal rd2">
+      <div class="pstep-bubble">03</div>
+      <div class="pstep-title">Campagne & Appels</div>
+      <div class="pstep-desc">Lancement des appels. Qualification en direct selon vos critères. Confirmation des RDV en double appel pour maximiser le show.</div>
+    </div>
+    <div class="pstep reveal rd3">
+      <div class="pstep-bubble">04</div>
+      <div class="pstep-title">Reporting & Optimisation</div>
+      <div class="pstep-desc">Rapport quotidien sur vos KPIs. Ajustements en temps réel. Réunion hebdomadaire de performance avec votre account manager.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section class="faq" id="faq">
+  <div class="reveal">
+    <div class="s-tag">Vos questions</div>
+    <h2 class="s-title">Tout ce que vous<br>voulez <em>savoir</em></h2>
+  </div>
+  <div class="faq-grid">
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Vos agents connaissent-ils vraiment l'automobile ? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Absolument. Tous nos agents sont sélectionnés pour leur connaissance du secteur automobile. Ils sont formés sur vos gammes, vos offres de financement, vos promotions et votre discours commercial avant de passer le premier appel.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Comment protégez-vous mon image de marque ? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Nous travaillons avec un script validé par vous à 100%. Nos agents se présentent sous votre nom de marque, respectent votre charte de communication et suivent des guidelines strictes. Tous les appels sont enregistrés et auditables.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Quel est votre engagement de résultats ? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Nous nous engageons sur un volume minimum de RDV qualifiés défini contractuellement. Si l'objectif n'est pas atteint, nous proposons des jours de compensation. Notre taux de renouvellement client de 94% parle pour nous.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Êtes-vous compatibles avec mon CRM ? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Oui. Nous nous intégrons avec les principaux CRM automobile : Salesforce, HubSpot, DealerSocket, Kerridge, et beaucoup d'autres. L'intégration est gérée par notre équipe technique sans frais supplémentaires.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Quelle est la durée minimale d'engagement ? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Nous proposons des formules à partir de 1 mois pour vous permettre de tester sans risque. Nos clients les plus satisfaits optent pour des engagements annuels avec des conditions préférentielles.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Travaillez-vous uniquement avec des concessions ? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Non. Nous travaillons avec des groupes automobiles, des garages indépendants, des mandataires, des loueurs et des acteurs de la mobilité. Notre expertise couvre tout l'écosystème automobile.</div>
+      </div>
+    </div>
+    <div class="faq-cta reveal rd2">
+      <div class="faq-cta-title">Prêt à remplir votre<br>agenda de <em>vrais RDV</em> ?</div>
+      <div class="faq-cta-desc">Demandez votre audit commercial gratuit. En 30 minutes, nous analysons votre potentiel et vous proposons une stratégie de prospection sur-mesure.</div>
+      <div class="faq-cta-points">
+        <div class="faq-cta-point">Audit gratuit et sans engagement</div>
+        <div class="faq-cta-point">Résultats estimés pour votre concession</div>
+        <div class="faq-cta-point">Proposition personnalisée sous 24h</div>
+        <div class="faq-cta-point">Lancement en moins de 48h</div>
+      </div>
+      <a href="#contact" class="btn-gold">Demander l'audit gratuit →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section class="contact" id="contact">
+  <div class="reveal">
+    <div class="s-tag">Travaillons ensemble</div>
+    <h2 class="s-title">Votre prochaine<br>campagne commence <em>ici</em></h2>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <p class="contact-sub">Parlez-nous de votre concession, vos objectifs, votre marché. Notre équipe vous rappelle sous 2h pour un audit commercial offert — sans engagement.</p>
+      <div class="contact-perks">
+        <div class="contact-perk"><div class="perk-dot"></div>Consultation de 30 minutes avec un expert automobile</div>
+        <div class="contact-perk"><div class="perk-dot"></div>Analyse gratuite de votre potentiel de marché</div>
+        <div class="contact-perk"><div class="perk-dot"></div>Proposition chiffrée sous 24h</div>
+        <div class="contact-perk"><div class="perk-dot"></div>Opérationnel en moins de 48h</div>
+      </div>
+      <div class="contact-channels">
+        <div class="channel">
+          <div class="channel-icon">📞</div>
+          <div><div class="channel-label">Téléphone direct</div><div class="channel-val">+33 (0)1 XX XX XX XX</div></div>
+        </div>
+        <div class="channel">
+          <div class="channel-icon">✉️</div>
+          <div><div class="channel-label">Email</div><div class="channel-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8ae9e5e4feebe9fecaede5ebfffee5e9ebe6e6a4ecf8">[email&#160;protected]</a></div></div>
+        </div>
+        <div class="channel">
+          <div class="channel-icon">💬</div>
+          <div><div class="channel-label">WhatsApp Business</div><div class="channel-val">Réponse en moins d'1h</div></div>
+        </div>
+        <div class="channel">
+          <div class="channel-icon">🕐</div>
+          <div><div class="channel-label">Disponibilité</div><div class="channel-val">Lun – Sam, 8h – 20h</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form reveal rd2" id="contactForm">
+      <form name="contact-goautocall" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contactFormInner">
+        <input type="hidden" name="form-name" value="contact-goautocall">
+        <input type="hidden" name="bot-field" style="display:none">
+      <div class="form-row">
+        <div class="fg"><label class="fl">Prénom</label><input type="text" class="fi" name="prenom" placeholder="Jean"/></div>
+        <div class="fg"><label class="fl">Nom</label><input type="text" class="fi" name="nom" placeholder="Dupont"/></div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label class="fl">Email professionnel</label><input type="email" class="fi" name="email" placeholder="jean@concession.fr"/></div>
+        <div class="fg"><label class="fl">Téléphone</label><input type="tel" class="fi" name="telephone" placeholder="+33 6 XX XX XX XX"/></div>
+      </div>
+      <div class="fg">
+        <label class="fl">Nom de votre concession / groupe</label>
+        <input type="text" class="fi" name="concession" placeholder="Ex : Groupe Auto Prestige Paris"/>
+      </div>
+      <div class="fg">
+        <label class="fl">Type de véhicules</label>
+        <div class="select-wrap">
+          <select class="fi select" name="type_vehicules">
+            <option value="" disabled selected>Votre activité principale</option>
+            <option>Véhicules Neufs (VN)</option>
+            <option>Véhicules d'Occasion (VO)</option>
+            <option>VN + VO</option>
+            <option>Premium / Luxe</option>
+            <option>Utilitaires</option>
+          </select>
+          <div class="select-arrow">▾</div>
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl">Votre objectif de RDV / mois</label>
+        <div class="select-wrap">
+          <select class="fi select" name="objectif_rdv">
+            <option value="" disabled selected>Volume souhaité</option>
+            <option>50 à 100 RDV</option>
+            <option>100 à 300 RDV</option>
+            <option>300 à 500 RDV</option>
+            <option>500 RDV et plus</option>
+          </select>
+          <div class="select-arrow">▾</div>
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl">Message (optionnel)</label>
+        <textarea class="ft" name="message" placeholder="Parlez-nous de votre projet, vos défis actuels, vos attentes..."></textarea>
+      </div>
+      <button type="submit" class="form-submit">Demander mon audit gratuit</button>
+      <div class="form-note">🔒 Vos données sont strictement confidentielles. Aucun démarchage commercial. Réponse garantie sous 2h ouvrées.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <img src="logo.png" alt="GoAutoCall Logo" style="height:44px;width:auto;display:block;">
+      <p class="footer-brand-desc">15 ans d'expertise en téléprospection automobile. Des équipes françaises passionnées qui génèrent des milliers de rendez-vous qualifiés chaque mois.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <div class="footer-links">
+        <a href="#">Prospection VN</a>
+        <a href="#">Prospection VO</a>
+        <a href="#">Prise de RDV</a>
+        <a href="#">Relance prospects</a>
+        <a href="#">Reporting & CRM</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Entreprise</div>
+      <div class="footer-links">
+        <a href="#">À propos</a>
+        <a href="#">Notre équipe</a>
+        <a href="#">Nos résultats</a>
+        <a href="#">Témoignages</a>
+        <a href="#">Blog automobile</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <div class="footer-links">
+        <a href="#">+33 (0)1 XX XX XX XX</a>
+        <a href="#"><span class="__cf_email__" data-cfemail="92f1fdfce6f3f1e6d2f5fdf3e7e6fdf1f3fefebcf4e0">[email&#160;protected]</span></a>
+        <a href="#">WhatsApp</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 GoAutoCall — Tous droits réservés</div>
+    <div class="footer-legal">
+      <a href="#">Mentions légales</a>
+      <a href="#">Confidentialité</a>
+      <a href="#">CGV</a>
+      <a href="#">RGPD</a>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries=>entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); }),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+  // Counter animation
+  function animCount(el){
+    const target=+el.dataset.target;
+    const suffix=el.dataset.suffix||'';
+    let v=0; const step=target/70;
+    const t=setInterval(()=>{ v+=step; if(v>=target){el.textContent=target.toLocaleString('fr-FR')+suffix; clearInterval(t); return;} el.textContent=Math.floor(v).toLocaleString('fr-FR')+suffix; },16);
+  }
+  const cobs = new IntersectionObserver(entries=>entries.forEach(e=>{ if(e.isIntersecting){ animCount(e.target); cobs.unobserve(e.target); } }),{threshold:0.05, rootMargin:'0px 0px -50px 0px'});
+  document.querySelectorAll('[data-target]').forEach(el=>cobs.observe(el));
+  // Fallback: run counters after 1s if still at 0
+  setTimeout(function(){
+    document.querySelectorAll('[data-target]').forEach(function(el){
+      if(el.textContent === '0' || el.textContent === '0+' || el.textContent === '0%') {
+        animCount(el);
+      }
+    });
+  }, 1000);
+
+  // FAQ accordion
+  // FAQ accordion — version robuste
+  document.querySelectorAll('.faq-q').forEach(function(q) {
+    q.style.cursor = 'pointer';
+    q.addEventListener('click', function() {
+      var item = q.closest('.faq-item');
+      var isOpen = item.classList.contains('open');
+      // Ferme tout
+      document.querySelectorAll('.faq-item').forEach(function(i) {
+        i.classList.remove('open');
+        var a = i.querySelector('.faq-a');
+        if(a) { a.style.maxHeight = '0'; a.style.paddingBottom = '0'; }
+        var icon = i.querySelector('.faq-icon');
+        if(icon) icon.style.transform = 'rotate(0deg)';
+      });
+      // Ouvre le cliqué si pas déjà ouvert
+      if(!isOpen) {
+        item.classList.add('open');
+        var a = item.querySelector('.faq-a');
+        if(a) { a.style.maxHeight = '500px'; a.style.paddingBottom = '20px'; }
+        var icon = item.querySelector('.faq-icon');
+        if(icon) icon.style.transform = 'rotate(45deg)';
+      }
+    });
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault(); t.scrollIntoV
